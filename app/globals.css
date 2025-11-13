@@ -119,3 +119,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.zcash-glow {
+  color: #facc15;
+  text-shadow: 
+    0 0 10px rgba(255, 200, 0, 0.8),
+    0 0 20px rgba(255, 200, 0, 0.6),
+    0 0 30px rgba(255, 200, 0, 0.4),
+    0 0 40px rgba(255, 200, 0, 0.3);
+}

@@ -26,45 +26,45 @@ export interface BentoProps {
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
-const DEFAULT_GLOW_COLOR = '132, 0, 255';
+const DEFAULT_GLOW_COLOR = '255, 200, 0';
 const MOBILE_BREAKPOINT = 768;
 
 const cardData: BentoCardProps[] = [
   {
     color: '#060010',
-    title: 'Blazing Fast!',
-    description: '<150ms Median Tx Submission Time',
-    label: 'Speed'
+    title: 'Cross-Chain Lending',
+    description: 'Lend your ZEC on Ethereum, NEAR, and other chains without leaving Zcash. Earn yield across the entire DeFi ecosystem.',
+    label: 'Lending'
   },
   {
     color: '#060010',
-    title: 'Highly Reliable',
-    description: '99.95% Uptime for Tachyon API',
-    label: 'Reliability'
+    title: 'Wrapped ZEC (wZEC)',
+    description: 'Tokenize your ZEC on any chain. Build DeFi primitives like ZEC-backed stablecoins, liquidity pools, and yield farms.',
+    label: 'Wrapped Assets'
   },
   {
     color: '#060010',
-    title: 'Lowest in DeFi',
-    description: '0.8% Revert Rates',
-    label: 'Efficiency'
+    title: 'NEAR Intents SDK',
+    description: 'Express your intent, not transactions. Our intent-based system orchestrates complex cross-chain actions automatically.',
+    label: 'Intents'
   },
   {
     color: '#060010',
-    title: '30K+',
-    description: 'Transactions',
-    label: 'Volume'
+    title: 'Privacy-First',
+    description: 'Maintain Zcash privacy while accessing DeFi. Your original ZEC stays private; wrapped assets enable cross-chain utility.',
+    label: 'Privacy'
   },
   {
     color: '#060010',
-    title: 'EIP 7702 Support',
-    description: 'Compatible with EIP-7702 wallets and intents, built for the next generation of account abstraction.',
-    label: 'Innovation'
+    title: 'Multi-Chain DeFi',
+    description: 'Access Aave, Compound, Uniswap, and more with your ZEC. Build and interact with DeFi protocols across all major chains.',
+    label: 'DeFi Access'
   },
   {
     color: '#060010',
-    title: 'Developer Experience',
-    description: 'Simple REST APIs and clear docs make integrating liquidity auctions into any app fast and easy.',
-    label: 'DevTools'
+    title: 'Easy Integration',
+    description: 'Simple APIs powered by NEAR intents make it easy for developers to build ZEC-powered applications on any chain.',
+    label: 'Developer Tools'
   }
 ];
 
@@ -545,9 +545,9 @@ const MagicBento: React.FC<BentoProps> = ({
             --border-color: #392e4e;
             --background-dark: #060010;
             --white: hsl(0, 0%, 100%);
-            --purple-primary: rgba(132, 0, 255, 1);
-            --purple-glow: rgba(132, 0, 255, 0.2);
-            --purple-border: rgba(132, 0, 255, 0.8);
+            --yellow-primary: rgba(255, 200, 0, 1);
+            --yellow-glow: rgba(255, 200, 0, 0.2);
+            --yellow-border: rgba(255, 200, 0, 0.8);
           }
           
           .card-responsive {

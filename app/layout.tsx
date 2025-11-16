@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ZEC × NEAR - Cross-Chain Privacy Solutions",
-  description: "Connect Zcash with multiple chains using NEAR intents SDK. Lend, build DeFi primitives, and utilize your ZEC across the entire DeFi ecosystem while maintaining privacy.",
+  description:
+    "Connect Zcash with multiple chains using NEAR intents SDK. Lend, build DeFi primitives, and utilize your ZEC across the entire DeFi ecosystem while maintaining privacy.",
 };
 
 export default function RootLayout({
@@ -25,10 +27,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
       >
+        <Navbar />
         {children}
       </body>
     </html>
   );
 }
+

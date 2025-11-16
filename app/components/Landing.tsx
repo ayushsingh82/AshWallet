@@ -1,18 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import CreativeMetallicEffect from './CreativeMetallicEffect';
 import MagicBento from './MagicBento';
 import SplashCursor from './SplashCursor';
  
-
+ 
 const Landing = () => {
-  const router = useRouter();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-  const [selectedNav, setSelectedNav] = useState<number>(0);
-
-  const navItems = ['Home', 'Developers', 'Blog'];
 
   const faqs = [
     {
@@ -46,32 +41,6 @@ const Landing = () => {
   };
   return (
     <div className="min-h-screen bg-black relative">
-      {/* Navbar */}
-      <nav className="flex items-center justify-between px-16 py-4">
-        <div className="text-2xl font-bold text-white">ZEC × NEAR</div>
-        <div className="flex items-center space-x-2">
-          {navItems.map((item, index) => (
-            <button
-              key={item}
-              onClick={() => setSelectedNav(index)}
-              className={`px-4 py-2 rounded-lg border-2 transition-colors ${
-                selectedNav === index
-                  ? 'bg-white text-black border-black'
-                  : 'bg-black text-white border-black hover:bg-gray-800'
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-        <button
-          className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-          onClick={() => router.push("/bridge")}
-        >
-          Get Started
-        </button>
-      </nav>
-
       {/* Hero Section */}
       <section className="px-8 py-16 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none z-0">

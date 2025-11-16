@@ -1,11 +1,43 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 const ZEC_ICON =
   "https://s2.coinmarketcap.com/static/img/coins/128x128/1437.png";
 const NEAR_ICON =
   "https://s2.coinmarketcap.com/static/img/coins/128x128/6535.png";
+const SOL_ICON =
+  "https://s2.coinmarketcap.com/static/img/coins/128x128/5426.png";
+
+const TARGET_CHAINS = [
+  {
+    id: "zcash",
+    label: "Zcash",
+    networkLabel: "Zcash network",
+    icon: ZEC_ICON,
+  },
+  {
+    id: "solana",
+    label: "Solana",
+    networkLabel: "Solana network",
+    icon: SOL_ICON,
+  },
+  {
+    id: "near",
+    label: "NEAR",
+    networkLabel: "NEAR network",
+    icon: NEAR_ICON,
+  },
+] as const;
+
+type TargetChainId = (typeof TARGET_CHAINS)[number]["id"];
 
 export default function BridgePage() {
+  const [targetChain, setTargetChain] = useState<TargetChainId>("zcash");
+
+  const selected = TARGET_CHAINS.find((c) => c.id === targetChain)!;
+
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="max-w-xl w-full bg-zinc-950/70 border border-yellow-400/40 rounded-2xl shadow-[0_0_40px_rgba(250,204,21,0.35)] p-6 md:p-8 backdrop-blur-lg">
@@ -62,9 +94,38 @@ export default function BridgePage() {
                 To
               </span>
               <span className="text-xs text-yellow-400">
-                ZEC on Zcash network
+                ZEC on {selected.networkLabel}
               </span>
             </div>
+
+            {/* Chain selector */}
+            <div className="flex gap-2 mb-3">
+              {TARGET_CHAINS.map((chain) => {
+                const active = chain.id === targetChain;
+                return (
+                  <button
+                    key={chain.id}
+                    type="button"
+                    onClick={() => setTargetChain(chain.id)}
+                    className={`flex-1 flex items-center justify-center gap-2 rounded-lg border px-2 py-1.5 text-xs transition-colors ${
+                      active
+                        ? "border-yellow-400 bg-yellow-400/10 text-yellow-200"
+                        : "border-zinc-700 bg-zinc-950 text-zinc-300 hover:border-yellow-400/60 hover:text-yellow-200"
+                    }`}
+                  >
+                    <Image
+                      src={chain.icon}
+                      alt={chain.label}
+                      width={18}
+                      height={18}
+                      className="rounded-full"
+                    />
+                    <span>{chain.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-950 px-3 py-1.5">
                 <Image
@@ -79,7 +140,7 @@ export default function BridgePage() {
               <div className="flex-1 text-right">
                 <div className="text-xl text-zinc-300">≈ 0.0 ZEC</div>
                 <p className="text-[11px] text-gray-500 mt-0.5">
-                  Estimated after routing
+                  Estimated on {selected.label} after routing
                 </p>
               </div>
             </div>
@@ -89,9 +150,9 @@ export default function BridgePage() {
           <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/5 p-4 text-sm text-yellow-100">
             <p className="font-medium mb-1">NEAR Intent</p>
             <p className="text-xs text-yellow-200/80 leading-relaxed">
-              “Bridge my NEAR on NEAR to private ZEC on Zcash, then expose
-              wrapped ZEC liquidity to DeFi on other chains.” This is a UX mock;
-              wiring to actual intents and bridge contracts comes next.
+              “Bridge my NEAR on NEAR to private ZEC, then surface wrapped ZEC
+              liquidity on {selected.label}.” This is a UX mock; wiring to
+              actual intents and bridge contracts comes next.
             </p>
           </div>
 

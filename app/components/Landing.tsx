@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import CreativeMetallicEffect from './CreativeMetallicEffect';
 import MagicBento from './MagicBento';
 import SplashCursor from './SplashCursor';
  
 
 const Landing = () => {
+  const router = useRouter();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [selectedNav, setSelectedNav] = useState<number>(0);
 
@@ -62,7 +64,10 @@ const Landing = () => {
             </button>
           ))}
         </div>
-        <button className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+        <button
+          className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          onClick={() => router.push("/bridge")}
+        >
           Get Started
         </button>
       </nav>

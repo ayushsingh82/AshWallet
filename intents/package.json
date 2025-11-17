@@ -1,0 +1,39 @@
+{
+  "name": "intents",
+  "version": "1.0.0",
+  "description": "1Click API swap quote integration",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node components/swap.ts",
+    "dev": "ts-node --watch components/swap.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "examples:demo": "ts-node function-examples.ts demo",
+    "examples:account": "ts-node function-examples.ts account",
+    "examples:balance": "ts-node function-examples.ts balance",
+    "examples:multitoken": "ts-node function-examples.ts multitoken",
+    "examples:deposit": "ts-node function-examples.ts deposit",
+    "examples:quote": "ts-node function-examples.ts quote",
+    "examples:deposit-fn": "ts-node function-examples.ts deposit-fn",
+    "withdraw": "ts-node components/withdrawl.ts",
+    "sol-withdraw": "ts-node components/sol_withdrawal.ts",
+    "swap": "ts-node components/swap.ts",
+    "deposit": "ts-node components/deposit.ts",
+    "intents": "ts-node components/intents.ts",
+    "flow:complete": "ts-node function-examples.ts complete-flow"
+  },
+  "dependencies": {
+    "@defuse-protocol/one-click-sdk-typescript": "^0.1.9" ,
+    "@near-js/accounts": "^2.0.2",
+    "@near-js/crypto": "^2.0.2",
+    "@near-js/providers": "^2.0.2",
+    "@near-js/signers": "^2.0.2",
+    "@near-js/tokens": "^2.0.2" ,
+     "dotenv": "^17.2.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2",
+    "@types/node": "^20.0.0"
+  }
+}

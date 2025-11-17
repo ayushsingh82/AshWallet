@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Turbopack configuration for Next.js 16
+  // Empty config to silence the warning since we've fixed the import chain
+  turbopack: {},
 };
 
 export default nextConfig;

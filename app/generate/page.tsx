@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Wallet, WalletAddress } from "./types";
 import { CHAINS } from "./constants";
 import TotalBalanceCard from "./TotalBalanceCard";
 import GenerateWalletForm from "./GenerateWalletForm";
-import WalletCard from "./WalletCard";
+import WalletCountCard from "./WalletCountCard";
 import EmptyState from "./EmptyState";
 
 export default function GeneratePage() {
@@ -68,10 +69,10 @@ export default function GeneratePage() {
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-semibold mb-4 bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
             Multichain Wallet Manager
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-sm text-gray-400 mt-1">
             Manage your wallets across Solana, Zcash, and NEAR
           </p>
         </div>
@@ -92,15 +93,41 @@ export default function GeneratePage() {
           />
         )}
 
-        {/* Wallets List */}
-        {wallets.length === 0 && !showGenerateForm ? (
+        {/* Wallet Count Cards */}
+        {!showGenerateForm && (
+          <>
+            <WalletCountCard wallets={wallets} />
+            
+            {/* View All Wallets Link */}
+            {wallets.length > 0 && (
+              <div className="mt-6 text-center">
+                <Link
+                  href="/generate/wallets"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-300 to-yellow-500 text-black font-semibold rounded-lg hover:opacity-90 transition-all"
+                >
+                  View All Wallet Addresses
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Empty State */}
+        {wallets.length === 0 && !showGenerateForm && (
           <EmptyState onGenerateClick={() => setShowGenerateForm(true)} />
-        ) : (
-          <div className="space-y-4">
-            {wallets.map((wallet) => (
-              <WalletCard key={wallet.id} wallet={wallet} />
-            ))}
-          </div>
         )}
       </div>
     </div>

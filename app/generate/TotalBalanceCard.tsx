@@ -19,10 +19,10 @@ export default function TotalBalanceCard({
       <div className="flex items-center justify-between">
         <div>
           <p className="text-gray-400 text-sm mb-2">Total Balance</p>
-          <p className="text-4xl font-bold text-yellow-300">
+          <p className="text-2xl md:text-3xl font-semibold text-yellow-300">
             ${totalBalance.toFixed(2)}
           </p>
-          <p className="text-gray-500 text-sm mt-2">
+          <p className="text-gray-500 text-xs mt-1">
             Across {wallets.length} wallet{wallets.length !== 1 ? "s" : ""}
           </p>
         </div>

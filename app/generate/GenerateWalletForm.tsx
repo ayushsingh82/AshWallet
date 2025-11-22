@@ -45,7 +45,7 @@ export default function GenerateWalletForm({
   return (
     <div className="bg-zinc-950/70 border border-yellow-300/40 rounded-2xl p-8 backdrop-blur-lg mb-8">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-yellow-300">
+        <h2 className="text-xl font-semibold text-yellow-300">
           Generate New Wallet
         </h2>
         <button

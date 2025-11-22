@@ -22,8 +22,8 @@ export default function EmptyState({ onGenerateClick }: EmptyStateProps) {
           />
         </svg>
       </div>
-      <h3 className="text-xl font-semibold mb-2">No Wallets Yet</h3>
-      <p className="text-gray-400 mb-6">
+      <h3 className="text-lg font-semibold mb-2">No Wallets Yet</h3>
+      <p className="text-sm text-gray-400 mb-6">
         Generate your first multichain wallet to get started
       </p>
       <button

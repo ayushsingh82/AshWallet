@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZEC × NEAR - Cross-Chain Privacy Solutions",
+  title: "AshWallet - Privacy Wallets for Anonymous DeFi",
   description:
-    "Connect Zcash with multiple chains using NEAR intents SDK. Lend, build DeFi primitives, and utilize your ZEC across the entire DeFi ecosystem while maintaining privacy.",
+    "Generate temporary anonymous wallets for private DeFi interactions. Bridge your ZCash and get untraceable wallets on any chain. No KYC, no tracking.",
 };
 
 export default function RootLayout({

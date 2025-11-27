@@ -542,12 +542,12 @@ const MagicBento: React.FC<BentoProps> = ({
             --glow-intensity: 0;
             --glow-radius: 200px;
             --glow-color: ${glowColor};
-            --border-color: #392e4e;
+            --border-color: rgba(151, 251, 228, 0.3);
             --background-dark: #060010;
             --white: hsl(0, 0%, 100%);
-            --yellow-primary: rgba(255, 200, 0, 1);
-            --yellow-glow: rgba(255, 200, 0, 0.2);
-            --yellow-border: rgba(255, 200, 0, 0.8);
+            --yellow-primary: rgba(151, 251, 228, 1);
+            --yellow-glow: rgba(151, 251, 228, 0.2);
+            --yellow-border: rgba(151, 251, 228, 0.8);
           }
           
           .card-responsive {

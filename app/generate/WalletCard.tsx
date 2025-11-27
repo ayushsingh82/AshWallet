@@ -20,10 +20,10 @@ export default function WalletCard({ wallet }: WalletCardProps) {
   };
 
   return (
-    <div className="bg-zinc-950/70 border border-yellow-300/40 rounded-2xl p-6 backdrop-blur-lg">
+    <div className="bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl p-6 backdrop-blur-lg">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-yellow-300 mb-1">
+          <h3 className="text-xl font-bold text-[#97FBE4] mb-1">
             {wallet.name}
           </h3>
           <p className="text-sm text-gray-400">
@@ -32,7 +32,7 @@ export default function WalletCard({ wallet }: WalletCardProps) {
         </div>
         <div className="text-right">
           <p className="text-sm text-gray-400">Total Balance</p>
-          <p className="text-2xl font-bold text-yellow-300">
+          <p className="text-2xl font-bold text-[#97FBE4]">
             ${walletTotal.toFixed(2)}
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function WalletCard({ wallet }: WalletCardProps) {
                     <p className="text-sm text-gray-400 font-mono">
                       {addr.address}
                     </p>
-                    <p className="text-sm text-yellow-300 mt-1">
+                    <p className="text-sm text-[#97FBE4] mt-1">
                       {addr.balance.toFixed(4)} {chain.symbol}
                     </p>
                   </div>

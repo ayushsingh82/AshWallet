@@ -330,7 +330,7 @@ export default function PrivacyPage() {
               <div className="bg-zinc-800/50 border border-zinc-600 rounded-lg p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="font-semibold">Wallet Details</h4>
-                  <div className="text-sm text-yellow-400">
+                  <div className="text-sm text-[#97FBE4]">
                     Expires in: {formatTimeRemaining()}
                   </div>
                 </div>

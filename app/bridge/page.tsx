@@ -147,9 +147,9 @@ export default function BridgePage() {
           </div>
 
           {/* Intent summary */}
-          <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/5 p-4 text-sm text-yellow-100">
+          <div className="rounded-xl border border-[#97FBE4]/40 bg-[#97FBE4]/5 p-4 text-sm text-[#97FBE4]">
             <p className="font-medium mb-1">NEAR Intent</p>
-            <p className="text-xs text-yellow-200/80 leading-relaxed">
+            <p className="text-xs text-[#97FBE4]/80 leading-relaxed">
               “Bridge my NEAR on NEAR to private ZEC, then surface wrapped ZEC
               liquidity on {selected.label}.” This is a UX mock; wiring to
               actual intents and bridge contracts comes next.

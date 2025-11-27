@@ -18,8 +18,8 @@ export default function WalletCountCard({ wallets }: WalletCountCardProps) {
   };
 
   return (
-    <div className="bg-zinc-950/70 border border-yellow-300/40 rounded-2xl p-8 backdrop-blur-lg">
-      <h2 className="text-xl font-semibold text-yellow-300 mb-6">
+    <div className="bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl p-8 backdrop-blur-lg">
+      <h2 className="text-xl font-semibold text-[#97FBE4] mb-6">
         Wallet Statistics
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -29,7 +29,7 @@ export default function WalletCountCard({ wallets }: WalletCountCardProps) {
             <Link
               key={chain.id}
               href={`/generate/wallets?chain=${chain.id}`}
-              className="bg-zinc-900/50 border border-zinc-700 rounded-xl p-6 hover:border-yellow-300/50 transition-all cursor-pointer"
+              className="bg-zinc-900/50 border border-zinc-700 rounded-xl p-6 hover:border-[#97FBE4]/50 transition-all cursor-pointer"
             >
               <div className="flex items-center gap-4">
                 <div
@@ -47,7 +47,7 @@ export default function WalletCountCard({ wallets }: WalletCountCardProps) {
                 </div>
                 <div className="flex-1">
                   <p className="text-gray-400 text-sm mb-1">{chain.name}</p>
-                  <p className="text-2xl font-semibold text-yellow-300">
+                  <p className="text-2xl font-semibold text-[#97FBE4]">
                     {count}
                   </p>
                   <p className="text-gray-500 text-xs mt-1">

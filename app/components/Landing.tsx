@@ -49,8 +49,8 @@ const Landing = () => {
         </div>
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-5xl md:text-6xl font-semibold font-serif text-white mb-6 leading-tight">
-              Anonymous <span className="zcash-glow">Privacy Wallets</span>
+            <h1 className="text-5xl md:text-6xl font-semibold font-serif mb-6 leading-tight">
+              <span className="text-white">Anonymous</span> <span className="text-[#97FBE4]">Privacy Wallets</span>
             </h1>
             <p className="text-2xl text-gray-300 leading-tight mb-8 max-w-3xl">
               Generate temporary anonymous wallets for private DeFi interactions. Bridge your ZCash and get untraceable wallets on any chain. No KYC, no tracking.
@@ -117,7 +117,7 @@ const Landing = () => {
             clickEffect={true}
             spotlightRadius={300}
             particleCount={12}
-            glowColor="255, 200, 0"
+            glowColor="151, 251, 228"
           />
 
         </div>

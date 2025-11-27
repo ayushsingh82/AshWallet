@@ -31,37 +31,37 @@ const MOBILE_BREAKPOINT = 768;
 
 const cardData: BentoCardProps[] = [
   {
-    color: '#060010',
+    color: '#000000',
     title: 'Anonymous Wallets',
     description: 'Generate temporary wallets with auto-expiry. No KYC, no tracking, complete anonymity for your DeFi interactions.',
     label: 'Privacy'
   },
   {
-    color: '#060010',
+    color: '#000000',
     title: 'Multi-Chain Support',
     description: 'Get anonymous wallets on Solana, Ethereum, Polygon, and more. One click, any chain, maximum privacy.',
     label: 'Multi-Chain'
   },
   {
-    color: '#060010',
+    color: '#000000',
     title: 'ZCash Bridge',
     description: 'Bridge your ZCash to any chain via NEAR intents. Maintain privacy while accessing the entire DeFi ecosystem.',
     label: 'Bridge'
   },
   {
-    color: '#060010',
+    color: '#000000',
     title: 'Auto-Expiry',
     description: 'Wallets automatically expire for maximum privacy. Choose from 5 minutes to 1 hour based on your needs.',
     label: 'Security'
   },
   {
-    color: '#060010',
+    color: '#000000',
     title: 'Export & Use',
     description: 'Export private keys to import into MetaMask, Phantom, or any wallet. Use your anonymous wallet anywhere.',
     label: 'Compatibility'
   },
   {
-    color: '#060010',
+    color: '#000000',
     title: 'Fund Recovery',
     description: 'Built-in fund recovery system prevents loss. Export your keys before expiry and never lose your funds.',
     label: 'Safety'
@@ -542,12 +542,12 @@ const MagicBento: React.FC<BentoProps> = ({
             --glow-intensity: 0;
             --glow-radius: 200px;
             --glow-color: ${glowColor};
-            --border-color: rgba(151, 251, 228, 0.3);
-            --background-dark: #060010;
+            --border-color: rgba(255, 255, 255, 0.3);
+            --background-dark: #000000;
             --white: hsl(0, 0%, 100%);
-            --yellow-primary: rgba(151, 251, 228, 1);
-            --yellow-glow: rgba(151, 251, 228, 0.2);
-            --yellow-border: rgba(151, 251, 228, 0.8);
+            --yellow-primary: rgba(235, 247, 63, 1);
+            --yellow-glow: rgba(235, 247, 63, 0.2);
+            --yellow-border: rgba(235, 247, 63, 0.8);
           }
           
           .card-responsive {
@@ -693,7 +693,7 @@ const MagicBento: React.FC<BentoProps> = ({
                 <ParticleCard
                   key={index}
                   className={baseClassName}
-                  style={cardStyle}
+                  style={{...cardStyle, backgroundColor: '#141414', borderColor: '#374151'}}
                   disableAnimations={shouldDisableAnimations}
                   particleCount={particleCount}
                   glowColor={glowColor}
@@ -701,6 +701,10 @@ const MagicBento: React.FC<BentoProps> = ({
                   clickEffect={clickEffect}
                   enableMagnetism={enableMagnetism}
                 >
+                  <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                  <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                   <div className="card__header flex justify-between gap-3 relative text-white">
                     <span className="card__label text-lg">{card.label}</span>
                   </div>

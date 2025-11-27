@@ -50,7 +50,7 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="text-5xl md:text-6xl font-semibold font-serif mb-6 leading-tight">
-              <span className="text-white">Anonymous</span> <span className="text-[#97FBE4]">Privacy Wallets</span>
+              <span className="text-white hover:text-[#EBF73F] transition-colors">Anonymous</span> <span className="text-white hover:text-[#EBF73F] transition-colors">Privacy Wallets</span>
             </h1>
             <p className="text-2xl text-gray-300 leading-tight mb-8 max-w-3xl">
               Generate temporary anonymous wallets for private DeFi interactions. Bridge your ZCash and get untraceable wallets on any chain. No KYC, no tracking.
@@ -58,13 +58,13 @@ const Landing = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/wallet"
-                className="px-8 py-4 bg-[#97FBE4] text-black font-bold rounded-lg hover:bg-[#7EE7D6] transition-colors text-lg"
+                className="px-8 py-4 bg-[#EBF73F] text-black font-bold rounded-lg hover:bg-[#e8eb9f] transition-colors text-lg"
               >
                 Generate Privacy Wallet
               </Link>
               <Link
                 href="#how-it-works"
-                className="px-8 py-4 border border-[#97FBE4] text-[#97FBE4] font-bold rounded-lg hover:bg-[#97FBE4] hover:text-black transition-colors text-lg"
+                className="px-8 py-4 border border-[#EBF73F] text-[#EBF73F] font-bold rounded-lg hover:bg-[#EBF73F] hover:text-black transition-colors text-lg"
               >
                 How It Works
               </Link>
@@ -84,28 +84,59 @@ const Landing = () => {
           </p>
 
           {/* Simple 4-step process */}
-          <div className="grid md:grid-cols-4 gap-8 mb-16">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
-              <h4 className="font-bold text-lg mb-2">We Generate Wallet</h4>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-2 mb-16">
+            <div className="text-center flex-1">
+              <div className="w-16 h-16 bg-[#141414] border border-gray-700 flex items-center justify-center text-2xl font-bold mx-auto mb-4 relative group hover:bg-black transition-colors">
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
+                <span className="text-[#EBF73F] relative z-10">1</span>
+              </div>
+              <h4 className="font-bold text-lg mb-2 text-white">We Generate Wallet</h4>
               <p className="text-gray-400 text-sm">We create anonymous wallet and show deposit address</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
-              <h4 className="font-bold text-lg mb-2">You Deposit ZCash</h4>
+            <div className="hidden md:block text-[#EBF73F] text-3xl">→</div>
+            <div className="text-center flex-1">
+              <div className="w-16 h-16 bg-[#141414] border border-gray-700 flex items-center justify-center text-2xl font-bold mx-auto mb-4 relative group hover:bg-black transition-colors">
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
+                <span className="text-[#EBF73F] relative z-10">2</span>
+              </div>
+              <h4 className="font-bold text-lg mb-2 text-white">You Deposit ZCash</h4>
               <p className="text-gray-400 text-sm">Bridge your ZEC to our generated wallet address</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
-              <h4 className="font-bold text-lg mb-2">Auto Processing</h4>
+            <div className="hidden md:block text-[#EBF73F] text-3xl">→</div>
+            <div className="text-center flex-1">
+              <div className="w-16 h-16 bg-[#141414] border border-gray-700 flex items-center justify-center text-2xl font-bold mx-auto mb-4 relative group hover:bg-black transition-colors">
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
+                <span className="text-[#EBF73F] relative z-10">3</span>
+              </div>
+              <h4 className="font-bold text-lg mb-2 text-white">Auto Processing</h4>
               <p className="text-gray-400 text-sm">We automatically route to your chosen destination chain</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
-              <h4 className="font-bold text-lg mb-2">Tokens Ready</h4>
+            <div className="hidden md:block text-[#EBF73F] text-3xl">→</div>
+            <div className="text-center flex-1">
+              <div className="w-16 h-16 bg-[#141414] border border-gray-700 flex items-center justify-center text-2xl font-bold mx-auto mb-4 relative group hover:bg-black transition-colors">
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
+                <span className="text-[#EBF73F] relative z-10">4</span>
+              </div>
+              <h4 className="font-bold text-lg mb-2 text-white">Tokens Ready</h4>
               <p className="text-gray-400 text-sm">Your anonymous wallet has tokens ready for private DeFi</p>
             </div>
           </div>
+
+          <h3 className="text-3xl font-bold text-white mb-8 text-center">
+            Features
+          </h3>
 
           <MagicBento 
             textAutoHide={true}
@@ -117,7 +148,7 @@ const Landing = () => {
             clickEffect={true}
             spotlightRadius={300}
             particleCount={12}
-            glowColor="151, 251, 228"
+            glowColor="235, 247, 63"
           />
 
         </div>
@@ -129,18 +160,22 @@ const Landing = () => {
           <h2 className="text-4xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="border border-gray-700 hover:border-[#97FBE4] rounded-lg transition-colors">
+              <div key={index} className={`bg-[#141414] border border-gray-700 relative group transition-colors ${openFAQ === index ? 'hover:bg-black' : 'hover:bg-black'}`}>
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-[#97FBE4]/30 transition-colors hover:border-[#97FBE4]"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between transition-colors relative z-10"
                 >
                   <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
-                  <span className="text-2xl font-light text-gray-400">
+                  <span className="text-2xl font-light text-[#EBF73F]">
                     {openFAQ === index ? '−' : '+'}
                   </span>
                 </button>
                 {openFAQ === index && (
-                  <div className="px-6 pb-4">
+                  <div className="px-6 pb-4 relative z-10">
                     <p className="text-gray-300">{faq.answer}</p>
                   </div>
                 )}

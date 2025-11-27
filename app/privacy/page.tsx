@@ -146,7 +146,7 @@ export default function PrivacyPage() {
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#97FBE4] to-[#7EE7D6] bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white hover:text-[#EBF73F] transition-colors">
             Privacy-Preserving Cross-Chain Bridge
           </h1>
           <p className="text-gray-400 text-lg">
@@ -160,18 +160,22 @@ export default function PrivacyPage() {
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
                 <div className={`
-                  flex items-center justify-center w-12 h-12 rounded-full text-2xl
-                  ${step.status === 'active' ? 'bg-[#97FBE4] text-black' : 
-                    step.status === 'completed' ? 'bg-green-500 text-white' : 
+                  flex items-center justify-center w-12 h-12 text-2xl bg-[#141414] border border-gray-700 relative group hover:bg-black transition-colors
+                  ${step.status === 'active' ? 'text-[#EBF73F]' : 
+                    step.status === 'completed' ? 'text-[#EBF73F]' : 
                     step.status === 'failed' ? 'bg-red-500 text-white' : 
-                    'bg-gray-700 text-gray-400'}
+                    'text-gray-400'}
                 `}>
-                  {step.icon}
+                  <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                  <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
+                  <span className="relative z-10">{step.icon}</span>
                 </div>
                 {index < steps.length - 1 && (
                   <div className={`
                     w-16 h-1 mx-4
-                    ${step.status === 'completed' ? 'bg-green-500' : 'bg-gray-700'}
+                    ${step.status === 'completed' ? 'bg-[#EBF73F]' : 'bg-gray-700'}
                   `} />
                 )}
               </div>
@@ -195,7 +199,11 @@ export default function PrivacyPage() {
         )}
 
         {/* Step Content */}
-        <div className="bg-zinc-900/50 border border-zinc-700 rounded-xl p-8">
+        <div className="bg-[#141414] border border-gray-700 p-8 relative group">
+          <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+          <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+          <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+          <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
           {currentStep === 'config' && (
             <div className="space-y-6">
               <h3 className="text-xl font-semibold mb-6">Configure Your Privacy Transaction</h3>
@@ -227,7 +235,7 @@ export default function PrivacyPage() {
                   min="0"
                   value={flowConfig.zcashAmount || ''}
                   onChange={(e) => setFlowConfig({...flowConfig, zcashAmount: parseFloat(e.target.value) || 0})}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:outline-none focus:border-[#97FBE4]"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:outline-none focus:border-white"
                   placeholder="0.1"
                 />
                 <div className="mt-2 text-xs text-gray-400">
@@ -248,8 +256,8 @@ export default function PrivacyPage() {
                       className={`
                         p-4 border rounded-lg flex items-center gap-3 transition-colors
                         ${flowConfig.destinationChain === chain.id 
-                          ? 'border-[#97FBE4] bg-[#97FBE4]/10' 
-                          : 'border-zinc-600 hover:border-[#97FBE4]/50'}
+                          ? 'border-white bg-[#EBF73F]/10' 
+                          : 'border-zinc-600 hover:border-white/50'}
                       `}
                     >
                       <Image src={chain.icon} alt={chain.name} width={24} height={24} className="rounded-full" />
@@ -272,8 +280,8 @@ export default function PrivacyPage() {
                       className={`
                         p-4 border rounded-lg text-center transition-colors
                         ${flowConfig.privacyLevel === level 
-                          ? 'border-[#97FBE4] bg-[#97FBE4]/10' 
-                          : 'border-zinc-600 hover:border-[#97FBE4]/50'}
+                          ? 'border-white bg-[#EBF73F]/10' 
+                          : 'border-zinc-600 hover:border-white/50'}
                       `}
                     >
                       <div className="font-semibold capitalize">{level}</div>
@@ -294,7 +302,7 @@ export default function PrivacyPage() {
                   type="text"
                   value={flowConfig.purpose}
                   onChange={(e) => setFlowConfig({...flowConfig, purpose: e.target.value})}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:outline-none focus:border-[#97FBE4]"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:outline-none focus:border-white"
                   placeholder="e.g., Uniswap trading, Aave lending"
                 />
               </div>
@@ -308,7 +316,7 @@ export default function PrivacyPage() {
                   type="url"
                   value={flowConfig.dappUrl || ''}
                   onChange={(e) => setFlowConfig({...flowConfig, dappUrl: e.target.value})}
-                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:outline-none focus:border-[#97FBE4]"
+                  className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:outline-none focus:border-white"
                   placeholder="https://app.uniswap.org"
                 />
               </div>
@@ -316,7 +324,7 @@ export default function PrivacyPage() {
               <button
                 onClick={handleConfigSubmit}
                 disabled={isProcessing}
-                className="w-full py-3 bg-[#97FBE4] text-black font-semibold rounded-lg hover:bg-[#7EE7D6] transition-colors disabled:opacity-50"
+                className="w-full py-3 bg-[#EBF73F] text-black font-semibold rounded-lg hover:bg-[#EBF73F] transition-colors disabled:opacity-50"
               >
                 {isProcessing ? 'Generating...' : 'Generate Privacy Wallet'}
               </button>
@@ -327,10 +335,14 @@ export default function PrivacyPage() {
             <div className="space-y-6">
               <h3 className="text-xl font-semibold mb-6">Temporary Privacy Wallet Generated</h3>
               
-              <div className="bg-zinc-800/50 border border-zinc-600 rounded-lg p-6">
+              <div className="bg-[#141414] border border-gray-700 p-6 relative group">
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="font-semibold">Wallet Details</h4>
-                  <div className="text-sm text-[#97FBE4]">
+                  <div className="text-sm text-[#EBF73F]">
                     Expires in: {formatTimeRemaining()}
                   </div>
                 </div>
@@ -387,7 +399,7 @@ export default function PrivacyPage() {
               <button
                 onClick={handleStartBridge}
                 disabled={isProcessing}
-                className="w-full py-3 bg-[#97FBE4] text-black font-semibold rounded-lg hover:bg-[#7EE7D6] transition-colors disabled:opacity-50"
+                className="w-full py-3 bg-[#EBF73F] text-black font-semibold rounded-lg hover:bg-[#EBF73F] transition-colors disabled:opacity-50"
               >
                 Start Privacy Bridge
               </button>
@@ -399,12 +411,16 @@ export default function PrivacyPage() {
               <h3 className="text-xl font-semibold mb-6">Executing Privacy Bridge</h3>
               
               {/* Simulation Notice */}
-              <div className="bg-[#97FBE4]/20 border border-[#97FBE4] rounded-lg p-4 mb-4">
+              <div className="bg-[#141414] border border-gray-700 p-4 mb-4 relative group">
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[#97FBE4]">⚠️</span>
-                  <span className="font-semibold text-[#97FBE4]">Demo Mode</span>
+                  <span className="text-[#EBF73F]">⚠️</span>
+                  <span className="font-semibold text-[#EBF73F]">Demo Mode</span>
                 </div>
-                <div className="text-[#97FBE4] text-sm">
+                <div className="text-[#EBF73F] text-sm">
                   <p><strong>Real:</strong> Live market prices and bridge routes from 1Click API</p>
                   <p><strong>Simulated:</strong> Transaction execution (requires actual ZCash funds)</p>
                 </div>
@@ -415,8 +431,8 @@ export default function PrivacyPage() {
                   <div key={step.id} className="flex items-center gap-4 p-4 bg-zinc-800/50 border border-zinc-600 rounded-lg">
                     <div className={`
                       w-8 h-8 rounded-full flex items-center justify-center text-sm
-                      ${step.status === 'completed' ? 'bg-green-500 text-white' :
-                        step.status === 'in_progress' ? 'bg-[#97FBE4] text-black' :
+                      ${step.status === 'completed' ? 'bg-[#EBF73F] text-white' :
+                        step.status === 'in_progress' ? 'bg-[#EBF73F] text-black' :
                         step.status === 'failed' ? 'bg-red-500 text-white' :
                         'bg-gray-600 text-gray-300'}
                     `}>
@@ -427,7 +443,7 @@ export default function PrivacyPage() {
                     <div className="flex-1">
                       <div className="font-medium">{step.name}</div>
                       {step.status === 'in_progress' && (
-                        <div className="text-sm text-[#97FBE4]">Processing...</div>
+                        <div className="text-sm text-[#EBF73F]">Processing...</div>
                       )}
                       {step.txHash && (
                         <div className="text-xs text-gray-400 font-mono">{step.txHash}</div>
@@ -439,7 +455,7 @@ export default function PrivacyPage() {
 
               {isProcessing && (
                 <div className="text-center py-4">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#97FBE4]"></div>
+                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
                   <div className="mt-2 text-gray-400">Processing bridge transaction...</div>
                 </div>
               )}
@@ -450,17 +466,25 @@ export default function PrivacyPage() {
             <div className="space-y-6">
               <h3 className="text-xl font-semibold mb-6">Ready for DApp Interaction</h3>
               
-              <div className="bg-green-900/20 border border-green-500 rounded-lg p-6">
+              <div className="bg-[#141414] border border-gray-700 p-6 relative group">
+                <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white">✓</div>
-                  <h4 className="font-semibold text-green-400">Privacy Bridge Completed</h4>
+                  <div className="w-8 h-8 bg-[#EBF73F] rounded-full flex items-center justify-center text-white">✓</div>
+                  <h4 className="font-semibold text-[#EBF73F]">Privacy Bridge Completed</h4>
                 </div>
-                <p className="text-green-200 mb-4">
+                <p className="text-[#EBF73F] mb-4">
                   Your ZCash has been successfully bridged to {getDestinationChainInfo()?.name} through NEAR. 
                   You can now interact with DeFi protocols anonymously using your temporary wallet.
                 </p>
                 
-                <div className="bg-zinc-800/50 rounded-lg p-4 mb-4">
+                <div className="bg-[#141414] border border-gray-700 rounded-lg p-4 mb-4 relative group">
+                  <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                  <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
                   <div className="text-sm text-gray-400 mb-2">Temporary Wallet Address:</div>
                   <div className="font-mono text-sm break-all">
                     {privacyWallet.addresses.find(a => a.chainId === flowConfig.destinationChain)?.address}
@@ -469,7 +493,7 @@ export default function PrivacyPage() {
 
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-400">Time Remaining:</span>
-                  <span className="text-[#97FBE4] font-medium">{formatTimeRemaining()}</span>
+                  <span className="text-[#EBF73F] font-medium">{formatTimeRemaining()}</span>
                 </div>
               </div>
 
@@ -479,7 +503,7 @@ export default function PrivacyPage() {
                     href={flowConfig.dappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#97FBE4] text-black font-semibold rounded-lg hover:bg-[#7EE7D6] transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#EBF73F] text-black font-semibold rounded-lg hover:bg-[#EBF73F] transition-colors"
                   >
                     Open DApp
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -503,7 +527,7 @@ export default function PrivacyPage() {
                       dappUrl: ''
                     });
                   }}
-                  className="px-6 py-2 border border-zinc-600 text-gray-300 rounded-lg hover:border-[#97FBE4] hover:text-[#97FBE4] transition-colors"
+                  className="px-6 py-2 border border-zinc-600 text-gray-300 rounded-lg hover:border-white hover:text-[#EBF73F] transition-colors"
                 >
                   Start New Privacy Transaction
                 </button>

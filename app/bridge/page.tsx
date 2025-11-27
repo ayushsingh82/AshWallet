@@ -40,7 +40,11 @@ export default function BridgePage() {
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-      <div className="max-w-xl w-full bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl shadow-[0_0_40px_rgba(151,251,228,0.35)] p-6 md:p-8 backdrop-blur-lg">
+      <div className="max-w-xl w-full bg-[#141414] border border-gray-700 p-6 md:p-8 relative group">
+        <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+        <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl md:text-3xl font-semibold">
@@ -59,7 +63,7 @@ export default function BridgePage() {
               <span className="text-xs uppercase tracking-[0.2em] text-gray-400">
                 From
               </span>
-              <span className="text-xs text-[#97FBE4]">
+              <span className="text-xs text-[#EBF73F]">
                 NEAR on NEAR network
               </span>
             </div>
@@ -93,7 +97,7 @@ export default function BridgePage() {
               <span className="text-xs uppercase tracking-[0.2em] text-gray-400">
                 To
               </span>
-              <span className="text-xs text-[#97FBE4]">
+              <span className="text-xs text-[#EBF73F]">
                 ZEC on {selected.networkLabel}
               </span>
             </div>
@@ -109,8 +113,8 @@ export default function BridgePage() {
                     onClick={() => setTargetChain(chain.id)}
                     className={`flex-1 flex items-center justify-center gap-2 rounded-lg border px-2 py-1.5 text-xs transition-colors ${
                       active
-                        ? "border-[#97FBE4] bg-[#97FBE4]/10 text-[#97FBE4]"
-                        : "border-zinc-700 bg-zinc-950 text-zinc-300 hover:border-[#97FBE4]/60 hover:text-[#97FBE4]"
+                        ? "border-white bg-[#EBF73F]/10 text-[#EBF73F]"
+                        : "border-zinc-700 bg-zinc-950 text-zinc-300 hover:border-white/60 hover:text-[#EBF73F]"
                     }`}
                   >
                     <Image
@@ -147,9 +151,9 @@ export default function BridgePage() {
           </div>
 
           {/* Intent summary */}
-          <div className="rounded-xl border border-[#97FBE4]/40 bg-[#97FBE4]/5 p-4 text-sm text-[#97FBE4]">
+          <div className="rounded-xl border border-white/40 bg-[#EBF73F]/5 p-4 text-sm text-[#EBF73F]">
             <p className="font-medium mb-1">NEAR Intent</p>
-            <p className="text-xs text-[#97FBE4]/80 leading-relaxed">
+            <p className="text-xs text-[#EBF73F]/80 leading-relaxed">
               “Bridge my NEAR on NEAR to private ZEC, then surface wrapped ZEC
               liquidity on {selected.label}.” This is a UX mock; wiring to
               actual intents and bridge contracts comes next.
@@ -157,7 +161,7 @@ export default function BridgePage() {
           </div>
 
           <button
-            className="w-full mt-1 rounded-xl bg-[#97FBE4] text-black font-semibold py-3 text-sm tracking-wide hover:bg-[#7EE7D6] transition-colors"
+            className="w-full mt-1 rounded-xl bg-[#EBF73F] text-black font-semibold py-3 text-sm tracking-wide hover:bg-[#EBF73F] transition-colors"
             disabled
           >
             Bridge via NEAR Intents (Coming Soon)

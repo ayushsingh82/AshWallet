@@ -98,8 +98,8 @@ export default function PrivacyWalletDashboard() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'text-green-400';
-      case 'in_progress': case 'bridging_to_near': case 'routing_to_dest': return 'text-[#97FBE4]';
+      case 'completed': return 'text-[#EBF73F]';
+      case 'in_progress': case 'bridging_to_near': case 'routing_to_dest': return 'text-[#EBF73F]';
       case 'failed': case 'expired': return 'text-red-400';
       default: return 'text-gray-400';
     }
@@ -107,7 +107,11 @@ export default function PrivacyWalletDashboard() {
 
   if (activeWallets.length === 0) {
     return (
-      <div className="bg-zinc-900/50 border border-zinc-700 rounded-xl p-8 text-center">
+      <div className="bg-[#141414] border border-gray-700 p-8 text-center relative group">
+        <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+        <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
         <div className="text-6xl mb-4">🔒</div>
         <h3 className="text-xl font-semibold mb-2">No Active Privacy Wallets</h3>
         <p className="text-gray-400 mb-6">
@@ -115,7 +119,7 @@ export default function PrivacyWalletDashboard() {
         </p>
         <Link
           href="/privacy"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-[#97FBE4] text-black font-semibold rounded-lg hover:bg-[#7EE7D6] transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[#EBF73F] text-black font-semibold rounded-lg hover:bg-[#EBF73F] transition-colors"
         >
           Create Privacy Wallet
         </Link>
@@ -129,7 +133,7 @@ export default function PrivacyWalletDashboard() {
         <h2 className="text-2xl font-bold">Active Privacy Wallets</h2>
         <Link
           href="/privacy"
-          className="px-4 py-2 bg-[#97FBE4] text-black font-semibold rounded-lg hover:bg-[#7EE7D6] transition-colors text-sm"
+          className="px-4 py-2 bg-[#EBF73F] text-black font-semibold rounded-lg hover:bg-[#EBF73F] transition-colors text-sm"
         >
           + New Privacy Wallet
         </Link>
@@ -178,16 +182,21 @@ export default function PrivacyWalletDashboard() {
           return (
             <div
               key={wallet.id}
-              className="bg-zinc-900/50 border border-zinc-700 rounded-xl p-6 hover:border-[#97FBE4]/50 transition-colors cursor-pointer"
+              className="bg-[#141414] border border-gray-700 p-6 relative group hover:bg-black transition-colors cursor-pointer"
               onClick={() => setSelectedWallet(selectedWallet?.id === wallet.id ? null : wallet)}
+            >
+              <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+              <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+              <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-green-400">Active</span>
+                  <div className="w-3 h-3 bg-[#EBF73F] rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-[#EBF73F]">Active</span>
                 </div>
-                <div className="text-sm text-[#97FBE4] font-mono">
+                <div className="text-sm text-[#EBF73F] font-mono">
                   {remainingTime}
                 </div>
               </div>
@@ -203,8 +212,8 @@ export default function PrivacyWalletDashboard() {
                   <span className="text-gray-400">Privacy Level:</span>
                   <span className={`capitalize font-medium ${
                     wallet.privacyLevel === 'high' ? 'text-red-400' :
-                    wallet.privacyLevel === 'medium' ? 'text-[#97FBE4]' :
-                    'text-green-400'
+                    wallet.privacyLevel === 'medium' ? 'text-[#EBF73F]' :
+                    'text-[#EBF73F]'
                   }`}>
                     {wallet.privacyLevel}
                   </span>
@@ -231,7 +240,7 @@ export default function PrivacyWalletDashboard() {
                 {wallet.sourceZcashAmount > 0 && (
                   <div className="flex items-center justify-between">
                     <span className="text-gray-400">ZCash Amount:</span>
-                    <span className="text-white font-mono">{wallet.sourceZcashAmount} ZEC</span>
+                    <span className="text-[#B8860B] font-mono">{wallet.sourceZcashAmount} ZEC</span>
                   </div>
                 )}
 
@@ -310,7 +319,7 @@ export default function PrivacyWalletDashboard() {
                 {transaction?.status === 'completed' && wallet.destinationChain && (
                   <button
                     onClick={(e) => e.stopPropagation()}
-                    className="flex-1 px-3 py-2 text-xs bg-[#97FBE4] hover:bg-[#7EE7D6] text-black rounded-lg transition-colors"
+                    className="flex-1 px-3 py-2 text-xs bg-[#EBF73F] hover:bg-[#EBF73F] text-black rounded-lg transition-colors"
                   >
                     Use
                   </button>
@@ -324,7 +333,11 @@ export default function PrivacyWalletDashboard() {
       {/* Detailed View Modal */}
       {selectedWallet && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-          <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+          <div className="bg-[#141414] border border-gray-700 p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto relative group">
+            <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+            <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-semibold">Privacy Wallet Details</h3>
               <button
@@ -339,7 +352,11 @@ export default function PrivacyWalletDashboard() {
 
             <div className="space-y-6">
               {/* Wallet Info */}
-              <div className="bg-zinc-800/50 rounded-lg p-4">
+              <div className="bg-[#141414] border border-gray-700 rounded-lg p-4 relative group">
+                <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
                 <h4 className="font-semibold mb-3">Wallet Information</h4>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -356,7 +373,7 @@ export default function PrivacyWalletDashboard() {
                   </div>
                   <div>
                     <span className="text-gray-400">Expires:</span>
-                    <div className="font-medium text-[#97FBE4]">
+                    <div className="font-medium text-[#EBF73F]">
                       {PrivacyWalletManager.formatRemainingTime(selectedWallet)}
                     </div>
                   </div>
@@ -396,15 +413,19 @@ export default function PrivacyWalletDashboard() {
                 if (!tx) return null;
 
                 return (
-                  <div className="bg-zinc-800/50 rounded-lg p-4">
+                  <div className="bg-[#141414] border border-gray-700 rounded-lg p-4 relative group">
+                    <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                    <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
                     <h4 className="font-semibold mb-3">Transaction Status</h4>
                     <div className="space-y-3">
                       {tx.steps.map(step => (
                         <div key={step.id} className="flex items-center gap-3">
                           <div className={`
-                            w-6 h-6 rounded-full flex items-center justify-center text-xs
-                            ${step.status === 'completed' ? 'bg-green-500 text-white' :
-                              step.status === 'in_progress' ? 'bg-[#97FBE4] text-black' :
+                            w-6 h-6 flex items-center justify-center text-xs
+                            ${step.status === 'completed' ? 'bg-[#EBF73F] text-black' :
+                              step.status === 'in_progress' ? 'bg-[#EBF73F] text-black' :
                               step.status === 'failed' ? 'bg-red-500 text-white' :
                               'bg-gray-600 text-gray-300'}
                           `}>
@@ -432,7 +453,11 @@ export default function PrivacyWalletDashboard() {
       {/* Fund Recovery Modal */}
       {showRecoveryModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-          <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 max-w-md w-full">
+          <div className="bg-[#141414] border border-gray-700 p-6 max-w-md w-full relative group">
+            <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+            <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-semibold text-red-400">Fund Recovery</h3>
               <button
@@ -466,7 +491,7 @@ export default function PrivacyWalletDashboard() {
                   value={recoveryAddress}
                   onChange={(e) => setRecoveryAddress(e.target.value)}
                   placeholder="Enter your main wallet address"
-                  className="w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-lg text-white text-sm focus:outline-none focus:border-[#97FBE4]"
+                  className="w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-lg text-white text-sm focus:outline-none focus:border-white"
                 />
                 <p className="text-xs text-gray-400 mt-1">
                   Address where you want to recover the funds
@@ -474,7 +499,11 @@ export default function PrivacyWalletDashboard() {
               </div>
 
               {selectedWallet && (
-                <div className="bg-zinc-800/50 rounded-lg p-3">
+                <div className="bg-[#141414] border border-gray-700 rounded-lg p-3 relative group">
+                  <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                  <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                  <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
                   <p className="text-sm text-gray-300 mb-2">
                     <strong>Wallet:</strong> {selectedWallet.name}
                   </p>
@@ -516,7 +545,7 @@ export default function PrivacyWalletDashboard() {
                     setRecoveryAddress('');
                     setSelectedWallet(null);
                   }}
-                  className="px-4 py-2 border border-zinc-600 text-gray-300 rounded-lg text-sm hover:border-[#97FBE4] hover:text-[#97FBE4] transition-colors"
+                  className="px-4 py-2 border border-zinc-600 text-gray-300 rounded-lg text-sm hover:border-white hover:text-[#EBF73F] transition-colors"
                 >
                   Cancel
                 </button>

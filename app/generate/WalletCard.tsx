@@ -20,10 +20,14 @@ export default function WalletCard({ wallet }: WalletCardProps) {
   };
 
   return (
-    <div className="bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl p-6 backdrop-blur-lg">
+    <div className="bg-[#141414] border border-gray-700 p-6 relative group">
+      <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+      <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+      <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+      <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-[#97FBE4] mb-1">
+          <h3 className="text-xl font-bold text-[#EBF73F] mb-1">
             {wallet.name}
           </h3>
           <p className="text-sm text-gray-400">
@@ -32,7 +36,7 @@ export default function WalletCard({ wallet }: WalletCardProps) {
         </div>
         <div className="text-right">
           <p className="text-sm text-gray-400">Total Balance</p>
-          <p className="text-2xl font-bold text-[#97FBE4]">
+          <p className="text-2xl font-bold text-[#EBF73F]">
             ${walletTotal.toFixed(2)}
           </p>
         </div>
@@ -74,7 +78,7 @@ export default function WalletCard({ wallet }: WalletCardProps) {
                     <p className="text-sm text-gray-400 font-mono">
                       {addr.address}
                     </p>
-                    <p className="text-sm text-[#97FBE4] mt-1">
+                    <p className={`text-sm mt-1 ${chain.id === 'zcash' ? 'text-[#B8860B]' : 'text-[#EBF73F]'}`}>
                       {addr.balance.toFixed(4)} {chain.symbol}
                     </p>
                   </div>

@@ -43,9 +43,13 @@ export default function GenerateWalletForm({
   };
 
   return (
-    <div className="bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl p-8 backdrop-blur-lg mb-8">
+    <div className="bg-[#141414] border border-gray-700 p-8 mb-8 relative group">
+      <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+      <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+      <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+      <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-[#97FBE4]">
+        <h2 className="text-xl font-semibold text-[#EBF73F]">
           Generate New Wallet
         </h2>
         <button
@@ -78,7 +82,7 @@ export default function GenerateWalletForm({
           value={walletName}
           onChange={(e) => setWalletName(e.target.value)}
           placeholder="My Multichain Wallet"
-          className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#97FBE4] transition-colors"
+          className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors"
         />
       </div>
 
@@ -95,7 +99,7 @@ export default function GenerateWalletForm({
               disabled={!chain.enabled}
               className={`relative p-6 rounded-xl border-2 transition-all ${
                 selectedChains.includes(chain.id)
-                  ? "border-[#97FBE4] bg-[#97FBE4]/10"
+                  ? "border-white bg-[#EBF73F]/10"
                   : "border-zinc-700 bg-zinc-900/50 hover:border-zinc-600"
               } ${!chain.enabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
             >
@@ -115,7 +119,7 @@ export default function GenerateWalletForm({
                 </div>
                 <span className="font-semibold text-lg">{chain.name}</span>
                 {selectedChains.includes(chain.id) && (
-                  <div className="absolute top-2 right-2 w-6 h-6 bg-[#97FBE4] rounded-full flex items-center justify-center">
+                  <div className="absolute top-2 right-2 w-6 h-6 bg-[#EBF73F] rounded-full flex items-center justify-center">
                     <svg
                       className="w-4 h-4 text-black"
                       fill="none"
@@ -141,7 +145,7 @@ export default function GenerateWalletForm({
       <button
         onClick={handleGenerate}
         disabled={selectedChains.length === 0 || isGenerating}
-        className="w-full py-4 bg-gradient-to-r from-[#97FBE4] to-[#7EE7D6] text-black font-semibold rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full py-4 bg-gradient-to-r from-[#EBF73F] to-[#EBF73F] text-black font-semibold rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {isGenerating ? (
           <>

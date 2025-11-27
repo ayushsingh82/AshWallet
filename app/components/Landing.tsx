@@ -58,13 +58,13 @@ const Landing = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/wallet"
-                className="px-8 py-4 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-300 transition-colors text-lg"
+                className="px-8 py-4 bg-[#97FBE4] text-black font-bold rounded-lg hover:bg-[#7EE7D6] transition-colors text-lg"
               >
                 Generate Privacy Wallet
               </Link>
               <Link
                 href="#how-it-works"
-                className="px-8 py-4 border border-yellow-400 text-yellow-400 font-bold rounded-lg hover:bg-yellow-400 hover:text-black transition-colors text-lg"
+                className="px-8 py-4 border border-[#97FBE4] text-[#97FBE4] font-bold rounded-lg hover:bg-[#97FBE4] hover:text-black transition-colors text-lg"
               >
                 How It Works
               </Link>
@@ -86,22 +86,22 @@ const Landing = () => {
           {/* Simple 4-step process */}
           <div className="grid md:grid-cols-4 gap-8 mb-16">
             <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
               <h4 className="font-bold text-lg mb-2">We Generate Wallet</h4>
               <p className="text-gray-400 text-sm">We create anonymous wallet and show deposit address</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
               <h4 className="font-bold text-lg mb-2">You Deposit ZCash</h4>
               <p className="text-gray-400 text-sm">Bridge your ZEC to our generated wallet address</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
               <h4 className="font-bold text-lg mb-2">Auto Processing</h4>
               <p className="text-gray-400 text-sm">We automatically route to your chosen destination chain</p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+              <div className="w-16 h-16 bg-[#97FBE4] text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
               <h4 className="font-bold text-lg mb-2">Tokens Ready</h4>
               <p className="text-gray-400 text-sm">Your anonymous wallet has tokens ready for private DeFi</p>
             </div>
@@ -129,10 +129,10 @@ const Landing = () => {
           <h2 className="text-4xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="border border-gray-700 hover:border-yellow-400 rounded-lg transition-colors">
+              <div key={index} className="border border-gray-700 hover:border-[#97FBE4] rounded-lg transition-colors">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-yellow-800/30 transition-colors hover:border-yellow-400"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-[#97FBE4]/30 transition-colors hover:border-[#97FBE4]"
                 >
                   <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
                   <span className="text-2xl font-light text-gray-400">

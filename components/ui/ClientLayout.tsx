@@ -13,7 +13,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
             {/* Logo/Name - Left */}
             <div className="flex-shrink-0">
               <Link href="/" className="text-2xl font-bold text-[#97FBE4]">
-                NEAR X ZEC
+                AshWallet
               </Link>
             </div>
 

@@ -70,7 +70,7 @@ export default function GeneratePage() {
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl md:text-3xl font-semibold mb-4 bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-semibold mb-4 bg-gradient-to-r from-[#97FBE4] to-[#7EE7D6] bg-clip-text text-transparent">
             Multichain Wallet Manager
           </h1>
           <p className="text-sm text-gray-400 mt-1">
@@ -104,7 +104,7 @@ export default function GeneratePage() {
               <div className="mt-6 text-center">
                 <Link
                   href="/generate/wallets"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-300 to-yellow-500 text-black font-semibold rounded-lg hover:opacity-90 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#97FBE4] to-[#7EE7D6] text-black font-semibold rounded-lg hover:opacity-90 transition-all"
                 >
                   View All Wallet Addresses
                   <svg

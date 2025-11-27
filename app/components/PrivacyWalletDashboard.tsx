@@ -99,7 +99,7 @@ export default function PrivacyWalletDashboard() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed': return 'text-green-400';
-      case 'in_progress': case 'bridging_to_near': case 'routing_to_dest': return 'text-yellow-400';
+      case 'in_progress': case 'bridging_to_near': case 'routing_to_dest': return 'text-[#97FBE4]';
       case 'failed': case 'expired': return 'text-red-400';
       default: return 'text-gray-400';
     }
@@ -115,7 +115,7 @@ export default function PrivacyWalletDashboard() {
         </p>
         <Link
           href="/privacy"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 text-black font-semibold rounded-lg hover:bg-yellow-300 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[#97FBE4] text-black font-semibold rounded-lg hover:bg-[#7EE7D6] transition-colors"
         >
           Create Privacy Wallet
         </Link>
@@ -129,7 +129,7 @@ export default function PrivacyWalletDashboard() {
         <h2 className="text-2xl font-bold">Active Privacy Wallets</h2>
         <Link
           href="/privacy"
-          className="px-4 py-2 bg-yellow-400 text-black font-semibold rounded-lg hover:bg-yellow-300 transition-colors text-sm"
+          className="px-4 py-2 bg-[#97FBE4] text-black font-semibold rounded-lg hover:bg-[#7EE7D6] transition-colors text-sm"
         >
           + New Privacy Wallet
         </Link>
@@ -178,7 +178,7 @@ export default function PrivacyWalletDashboard() {
           return (
             <div
               key={wallet.id}
-              className="bg-zinc-900/50 border border-zinc-700 rounded-xl p-6 hover:border-yellow-400/50 transition-colors cursor-pointer"
+              className="bg-zinc-900/50 border border-zinc-700 rounded-xl p-6 hover:border-[#97FBE4]/50 transition-colors cursor-pointer"
               onClick={() => setSelectedWallet(selectedWallet?.id === wallet.id ? null : wallet)}
             >
               {/* Header */}
@@ -187,7 +187,7 @@ export default function PrivacyWalletDashboard() {
                   <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                   <span className="text-sm font-medium text-green-400">Active</span>
                 </div>
-                <div className="text-sm text-yellow-400 font-mono">
+                <div className="text-sm text-[#97FBE4] font-mono">
                   {remainingTime}
                 </div>
               </div>
@@ -203,7 +203,7 @@ export default function PrivacyWalletDashboard() {
                   <span className="text-gray-400">Privacy Level:</span>
                   <span className={`capitalize font-medium ${
                     wallet.privacyLevel === 'high' ? 'text-red-400' :
-                    wallet.privacyLevel === 'medium' ? 'text-yellow-400' :
+                    wallet.privacyLevel === 'medium' ? 'text-[#97FBE4]' :
                     'text-green-400'
                   }`}>
                     {wallet.privacyLevel}
@@ -310,7 +310,7 @@ export default function PrivacyWalletDashboard() {
                 {transaction?.status === 'completed' && wallet.destinationChain && (
                   <button
                     onClick={(e) => e.stopPropagation()}
-                    className="flex-1 px-3 py-2 text-xs bg-yellow-400 hover:bg-yellow-300 text-black rounded-lg transition-colors"
+                    className="flex-1 px-3 py-2 text-xs bg-[#97FBE4] hover:bg-[#7EE7D6] text-black rounded-lg transition-colors"
                   >
                     Use
                   </button>
@@ -356,7 +356,7 @@ export default function PrivacyWalletDashboard() {
                   </div>
                   <div>
                     <span className="text-gray-400">Expires:</span>
-                    <div className="font-medium text-yellow-400">
+                    <div className="font-medium text-[#97FBE4]">
                       {PrivacyWalletManager.formatRemainingTime(selectedWallet)}
                     </div>
                   </div>
@@ -404,7 +404,7 @@ export default function PrivacyWalletDashboard() {
                           <div className={`
                             w-6 h-6 rounded-full flex items-center justify-center text-xs
                             ${step.status === 'completed' ? 'bg-green-500 text-white' :
-                              step.status === 'in_progress' ? 'bg-yellow-400 text-black' :
+                              step.status === 'in_progress' ? 'bg-[#97FBE4] text-black' :
                               step.status === 'failed' ? 'bg-red-500 text-white' :
                               'bg-gray-600 text-gray-300'}
                           `}>
@@ -466,7 +466,7 @@ export default function PrivacyWalletDashboard() {
                   value={recoveryAddress}
                   onChange={(e) => setRecoveryAddress(e.target.value)}
                   placeholder="Enter your main wallet address"
-                  className="w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-lg text-white text-sm focus:outline-none focus:border-yellow-400"
+                  className="w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-lg text-white text-sm focus:outline-none focus:border-[#97FBE4]"
                 />
                 <p className="text-xs text-gray-400 mt-1">
                   Address where you want to recover the funds
@@ -516,7 +516,7 @@ export default function PrivacyWalletDashboard() {
                     setRecoveryAddress('');
                     setSelectedWallet(null);
                   }}
-                  className="px-4 py-2 border border-zinc-600 text-gray-300 rounded-lg text-sm hover:border-yellow-400 hover:text-yellow-400 transition-colors"
+                  className="px-4 py-2 border border-zinc-600 text-gray-300 rounded-lg text-sm hover:border-[#97FBE4] hover:text-[#97FBE4] transition-colors"
                 >
                   Cancel
                 </button>

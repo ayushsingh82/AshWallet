@@ -138,7 +138,7 @@ export default function WalletPage() {
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#97FBE4] to-[#7EE7D6] bg-clip-text text-transparent">
             Privacy Wallet
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -154,7 +154,7 @@ export default function WalletPage() {
               <div key={step.id} className="flex items-center">
                 <div className={`
                   flex items-center justify-center w-12 h-12 rounded-full text-sm font-bold
-                  ${step.status === 'active' ? 'bg-yellow-400 text-black' : 
+                  ${step.status === 'active' ? 'bg-[#97FBE4] text-black' : 
                     step.status === 'completed' ? 'bg-green-500 text-white' : 
                     'bg-gray-700 text-gray-400'}
                 `}>
@@ -206,8 +206,8 @@ export default function WalletPage() {
                           className={`
                             p-4 border rounded-lg flex items-center gap-3 transition-colors
                             ${config.destinationChain === chain.id 
-                              ? 'border-yellow-400 bg-yellow-400/10' 
-                              : 'border-zinc-600 hover:border-yellow-400/50'}
+                              ? 'border-[#97FBE4] bg-[#97FBE4]/10' 
+                              : 'border-zinc-600 hover:border-[#97FBE4]/50'}
                           `}
                         >
                           <Image src={chain.icon} alt={chain.name} width={24} height={24} className="rounded-full" />
@@ -229,8 +229,8 @@ export default function WalletPage() {
                           className={`
                             p-3 border rounded-lg text-center transition-colors
                             ${config.privacyLevel === level 
-                              ? 'border-yellow-400 bg-yellow-400/10' 
-                              : 'border-zinc-600 hover:border-yellow-400/50'}
+                              ? 'border-[#97FBE4] bg-[#97FBE4]/10' 
+                              : 'border-zinc-600 hover:border-[#97FBE4]/50'}
                           `}
                         >
                           <div className="font-semibold capitalize">{level}</div>
@@ -245,7 +245,7 @@ export default function WalletPage() {
 
                 {/* Preview */}
                 <div className="bg-zinc-800/50 rounded-xl p-6">
-                  <h4 className="font-bold mb-4 text-yellow-400">Wallet Preview</h4>
+                  <h4 className="font-bold mb-4 text-[#97FBE4]">Wallet Preview</h4>
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-400">Destination:</span>
@@ -280,7 +280,7 @@ export default function WalletPage() {
                 <button
                   onClick={handleGenerateWallet}
                   disabled={isGenerating}
-                  className="px-8 py-4 bg-yellow-400 text-black font-bold text-lg rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-4 bg-[#97FBE4] text-black font-bold text-lg rounded-lg hover:bg-[#7EE7D6] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isGenerating ? 'Generating Wallet...' : 'Generate Privacy Wallet'}
                 </button>
@@ -309,14 +309,14 @@ export default function WalletPage() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-2">Auto-expires in:</p>
-                    <p className="font-bold text-yellow-400">{PrivacyWalletManager.formatRemainingTime(wallet)}</p>
+                    <p className="font-bold text-[#97FBE4]">{PrivacyWalletManager.formatRemainingTime(wallet)}</p>
                   </div>
                 </div>
               </div>
 
               {/* Deposit Address */}
-              <div className="bg-yellow-900/20 border border-yellow-500 rounded-xl p-6 mb-8">
-                <h4 className="font-bold mb-4 text-yellow-400">📍 Deposit Address</h4>
+              <div className="bg-[#97FBE4]/20 border border-[#97FBE4] rounded-xl p-6 mb-8">
+                <h4 className="font-bold mb-4 text-[#97FBE4]">📍 Deposit Address</h4>
                 <p className="text-sm text-gray-300 mb-4">
                   Bridge your ZCash to this NEAR address. We'll automatically detect the deposit and route it to {config.destinationChain}.
                 </p>
@@ -335,7 +335,7 @@ export default function WalletPage() {
                           alert('Address copied to clipboard!');
                         }
                       }}
-                      className="px-3 py-1 bg-yellow-400 text-black text-xs rounded hover:bg-yellow-300 transition-colors"
+                      className="px-3 py-1 bg-[#97FBE4] text-black text-xs rounded hover:bg-[#7EE7D6] transition-colors"
                     >
                       Copy
                     </button>
@@ -354,7 +354,7 @@ export default function WalletPage() {
                 <button
                   onClick={startMonitoring}
                   disabled={isMonitoring}
-                  className="px-8 py-4 bg-yellow-400 text-black font-bold text-lg rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50"
+                  className="px-8 py-4 bg-[#97FBE4] text-black font-bold text-lg rounded-lg hover:bg-[#7EE7D6] transition-colors disabled:opacity-50"
                 >
                   {isMonitoring ? 'Monitoring for Deposits...' : 'Start Monitoring (Demo)'}
                 </button>
@@ -379,7 +379,7 @@ export default function WalletPage() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
-                      depositDetected ? 'bg-green-500 text-white' : 'bg-yellow-400 text-black animate-pulse'
+                      depositDetected ? 'bg-green-500 text-white' : 'bg-[#97FBE4] text-black animate-pulse'
                     }`}>
                       {depositDetected ? '✓' : '⏳'}
                     </div>
@@ -388,7 +388,7 @@ export default function WalletPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
-                      depositDetected ? 'bg-yellow-400 text-black animate-pulse' : 'bg-gray-600 text-gray-300'
+                      depositDetected ? 'bg-[#97FBE4] text-black animate-pulse' : 'bg-gray-600 text-gray-300'
                     }`}>
                       {depositDetected ? '⏳' : '2'}
                     </div>
@@ -402,7 +402,7 @@ export default function WalletPage() {
               </div>
 
               <div className="text-center">
-                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400 mb-4"></div>
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#97FBE4] mb-4"></div>
                 <p className="text-gray-400">
                   {depositDetected ? 'Processing your deposit...' : 'Waiting for deposit...'}
                 </p>
@@ -459,7 +459,7 @@ export default function WalletPage() {
                         </div>
                         <button
                           onClick={() => exportPrivateKey(address.chainId)}
-                          className="px-6 py-3 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-300 transition-colors"
+                          className="px-6 py-3 bg-[#97FBE4] text-black font-bold rounded-lg hover:bg-[#7EE7D6] transition-colors"
                         >
                           Use This Wallet
                         </button>
@@ -481,9 +481,9 @@ export default function WalletPage() {
                 </p>
               </div>
 
-              <div className="bg-yellow-900/20 border border-yellow-500 rounded-xl p-6 mb-8">
-                <h4 className="font-bold mb-3 text-yellow-400">🎯 Your Anonymous Wallet</h4>
-                <p className="text-yellow-200 text-sm mb-4">
+              <div className="bg-[#97FBE4]/20 border border-[#97FBE4] rounded-xl p-6 mb-8">
+                <h4 className="font-bold mb-3 text-[#97FBE4]">🎯 Your Anonymous Wallet</h4>
+                <p className="text-[#97FBE4] text-sm mb-4">
                   Your tokens are now in an anonymous wallet on {config.destinationChain}. The wallet address and private key are shown below for your records.
                 </p>
                 
@@ -501,7 +501,7 @@ export default function WalletPage() {
                           alert('Address copied!');
                         }
                       }}
-                      className="px-3 py-1 bg-yellow-400 text-black text-xs rounded hover:bg-yellow-300 transition-colors"
+                      className="px-3 py-1 bg-[#97FBE4] text-black text-xs rounded hover:bg-[#7EE7D6] transition-colors"
                     >
                       Copy
                     </button>
@@ -525,7 +525,7 @@ export default function WalletPage() {
                       privacyLevel: 'medium'
                     });
                   }}
-                  className="px-6 py-3 border border-zinc-600 text-gray-300 rounded-lg hover:border-yellow-400 hover:text-yellow-400 transition-colors"
+                  className="px-6 py-3 border border-zinc-600 text-gray-300 rounded-lg hover:border-[#97FBE4] hover:text-[#97FBE4] transition-colors"
                 >
                   Create Another Wallet
                 </button>

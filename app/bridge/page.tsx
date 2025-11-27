@@ -40,7 +40,7 @@ export default function BridgePage() {
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-      <div className="max-w-xl w-full bg-zinc-950/70 border border-yellow-400/40 rounded-2xl shadow-[0_0_40px_rgba(250,204,21,0.35)] p-6 md:p-8 backdrop-blur-lg">
+      <div className="max-w-xl w-full bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl shadow-[0_0_40px_rgba(151,251,228,0.35)] p-6 md:p-8 backdrop-blur-lg">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl md:text-3xl font-semibold">
@@ -59,7 +59,7 @@ export default function BridgePage() {
               <span className="text-xs uppercase tracking-[0.2em] text-gray-400">
                 From
               </span>
-              <span className="text-xs text-yellow-400">
+              <span className="text-xs text-[#97FBE4]">
                 NEAR on NEAR network
               </span>
             </div>
@@ -93,7 +93,7 @@ export default function BridgePage() {
               <span className="text-xs uppercase tracking-[0.2em] text-gray-400">
                 To
               </span>
-              <span className="text-xs text-yellow-400">
+              <span className="text-xs text-[#97FBE4]">
                 ZEC on {selected.networkLabel}
               </span>
             </div>
@@ -109,8 +109,8 @@ export default function BridgePage() {
                     onClick={() => setTargetChain(chain.id)}
                     className={`flex-1 flex items-center justify-center gap-2 rounded-lg border px-2 py-1.5 text-xs transition-colors ${
                       active
-                        ? "border-yellow-400 bg-yellow-400/10 text-yellow-200"
-                        : "border-zinc-700 bg-zinc-950 text-zinc-300 hover:border-yellow-400/60 hover:text-yellow-200"
+                        ? "border-[#97FBE4] bg-[#97FBE4]/10 text-[#97FBE4]"
+                        : "border-zinc-700 bg-zinc-950 text-zinc-300 hover:border-[#97FBE4]/60 hover:text-[#97FBE4]"
                     }`}
                   >
                     <Image
@@ -157,7 +157,7 @@ export default function BridgePage() {
           </div>
 
           <button
-            className="w-full mt-1 rounded-xl bg-yellow-400 text-black font-semibold py-3 text-sm tracking-wide hover:bg-yellow-300 transition-colors"
+            className="w-full mt-1 rounded-xl bg-[#97FBE4] text-black font-semibold py-3 text-sm tracking-wide hover:bg-[#7EE7D6] transition-colors"
             disabled
           >
             Bridge via NEAR Intents (Coming Soon)

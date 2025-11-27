@@ -44,7 +44,7 @@ export default function WalletsPage() {
         <div className="mb-8">
           <Link
             href="/generate"
-            className="inline-flex items-center gap-2 text-yellow-300 hover:text-yellow-200 mb-4 transition-colors"
+            className="inline-flex items-center gap-2 text-[#97FBE4] hover:text-[#7EE7D6] mb-4 transition-colors"
           >
             <svg
               className="w-5 h-5"
@@ -61,7 +61,7 @@ export default function WalletsPage() {
             </svg>
             Back to Generate
           </Link>
-          <h1 className="text-2xl md:text-3xl font-semibold mb-4 bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-semibold mb-4 bg-gradient-to-r from-[#97FBE4] to-[#7EE7D6] bg-clip-text text-transparent">
             Wallet Addresses
           </h1>
           <p className="text-sm text-gray-400 mt-1">
@@ -70,13 +70,13 @@ export default function WalletsPage() {
         </div>
 
         {/* Chain Filter */}
-        <div className="bg-zinc-950/70 border border-yellow-300/40 rounded-2xl p-6 backdrop-blur-lg mb-8">
+        <div className="bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl p-6 backdrop-blur-lg mb-8">
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => router.push("/generate/wallets?chain=all")}
               className={`px-4 py-2 rounded-lg transition-all ${
                 selectedChain === "all"
-                  ? "bg-yellow-300 text-black font-semibold"
+                  ? "bg-[#97FBE4] text-black font-semibold"
                   : "bg-zinc-800 text-gray-300 hover:bg-zinc-700"
               }`}
             >
@@ -90,7 +90,7 @@ export default function WalletsPage() {
                   onClick={() => router.push(`/generate/wallets?chain=${chain.id}`)}
                   className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
                     selectedChain === chain.id
-                      ? "bg-yellow-300 text-black font-semibold"
+                      ? "bg-[#97FBE4] text-black font-semibold"
                       : "bg-zinc-800 text-gray-300 hover:bg-zinc-700"
                   }`}
                 >
@@ -110,10 +110,10 @@ export default function WalletsPage() {
 
         {/* Wallets List */}
         {filteredWallets.length === 0 ? (
-          <div className="bg-zinc-950/70 border border-yellow-300/40 rounded-2xl p-12 backdrop-blur-lg text-center">
-            <div className="w-20 h-20 bg-yellow-300/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl p-12 backdrop-blur-lg text-center">
+            <div className="w-20 h-20 bg-[#97FBE4]/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-10 h-10 text-yellow-300"
+                className="w-10 h-10 text-[#97FBE4]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -134,7 +134,7 @@ export default function WalletsPage() {
             </p>
             <Link
               href="/generate"
-              className="inline-block px-6 py-3 bg-gradient-to-r from-yellow-300 to-yellow-500 text-black font-semibold rounded-lg hover:opacity-90 transition-all"
+              className="inline-block px-6 py-3 bg-gradient-to-r from-[#97FBE4] to-[#7EE7D6] text-black font-semibold rounded-lg hover:opacity-90 transition-all"
             >
               Generate Wallet
             </Link>
@@ -160,11 +160,11 @@ export default function WalletsPage() {
               return (
                 <div
                   key={wallet.id}
-                  className="bg-zinc-950/70 border border-yellow-300/40 rounded-2xl p-6 backdrop-blur-lg"
+                  className="bg-zinc-950/70 border border-[#97FBE4]/40 rounded-2xl p-6 backdrop-blur-lg"
                 >
                   <div className="flex items-center justify-between mb-6">
                     <div>
-                      <h3 className="text-lg font-semibold text-yellow-300 mb-1">
+                      <h3 className="text-lg font-semibold text-[#97FBE4] mb-1">
                         {wallet.name}
                       </h3>
                       <p className="text-xs text-gray-400">
@@ -173,7 +173,7 @@ export default function WalletsPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-xs text-gray-400">Total Balance</p>
-                      <p className="text-xl font-semibold text-yellow-300">
+                      <p className="text-xl font-semibold text-[#97FBE4]">
                         ${walletTotal.toFixed(2)}
                       </p>
                     </div>
@@ -215,7 +215,7 @@ export default function WalletsPage() {
                                 <p className="text-sm text-gray-400 font-mono">
                                   {addr.address}
                                 </p>
-                                <p className="text-sm text-yellow-300 mt-1">
+                                <p className="text-sm text-[#97FBE4] mt-1">
                                   {addr.balance.toFixed(4)} {chain.symbol}
                                 </p>
                               </div>

@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer className="bg-black text-white px-8 py-8 border-t border-zinc-900">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <div className="text-xl font-bold">ZEC × NEAR</div>
+        <div className="text-xl font-bold">AshWallet</div>
         <div className="flex items-center space-x-6">
           <a href="#" className="hover:text-gray-400 transition-colors">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

@@ -7,7 +7,7 @@ const WalletSelector = () => {
 
   if (status === "loading") {
     return (
-      <div className="px-4 py-2 text-yellow-400 text-sm">
+      <div className="px-4 py-2 text-[#97FBE4] text-sm">
         Loading...
       </div>
     );
@@ -16,8 +16,8 @@ const WalletSelector = () => {
   if (status === "authenticated" && accountId) {
     return (
       <div className="flex items-center gap-3">
-        <div className="px-3 py-1 bg-black border border-yellow-400/60 rounded-lg">
-          <span className="text-yellow-400 text-sm font-mono">
+        <div className="px-3 py-1 bg-black border border-[#97FBE4]/60 rounded-lg">
+          <span className="text-[#97FBE4] text-sm font-mono">
             {accountId.length > 20 
               ? `${accountId.slice(0, 8)}...${accountId.slice(-8)}` 
               : accountId
@@ -37,7 +37,7 @@ const WalletSelector = () => {
   return (
     <button
       onClick={signIn}
-      className="px-4 py-2 bg-yellow-300  text-black font-medium rounded-lg transition-colors"
+      className="px-4 py-2 bg-[#97FBE4]  text-black font-medium rounded-lg transition-colors"
     >
       Connect Wallet
     </button>

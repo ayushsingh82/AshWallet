@@ -32,39 +32,39 @@ const MOBILE_BREAKPOINT = 768;
 const cardData: BentoCardProps[] = [
   {
     color: '#060010',
-    title: 'Cross-Chain Lending',
-    description: 'Lend your ZEC on Ethereum, NEAR, and other chains without leaving Zcash. Earn yield across the entire DeFi ecosystem.',
-    label: 'Lending'
-  },
-  {
-    color: '#060010',
-    title: 'Wrapped ZEC (wZEC)',
-    description: 'Tokenize your ZEC on any chain. Build DeFi primitives like ZEC-backed stablecoins, liquidity pools, and yield farms.',
-    label: 'Wrapped Assets'
-  },
-  {
-    color: '#060010',
-    title: 'NEAR Intents SDK',
-    description: 'Express your intent, not transactions. Our intent-based system orchestrates complex cross-chain actions automatically.',
-    label: 'Intents'
-  },
-  {
-    color: '#060010',
-    title: 'Privacy-First',
-    description: 'Maintain Zcash privacy while accessing DeFi. Your original ZEC stays private; wrapped assets enable cross-chain utility.',
+    title: 'Anonymous Wallets',
+    description: 'Generate temporary wallets with auto-expiry. No KYC, no tracking, complete anonymity for your DeFi interactions.',
     label: 'Privacy'
   },
   {
     color: '#060010',
-    title: 'Multi-Chain DeFi',
-    description: 'Access Aave, Compound, Uniswap, and more with your ZEC. Build and interact with DeFi protocols across all major chains.',
-    label: 'DeFi Access'
+    title: 'Multi-Chain Support',
+    description: 'Get anonymous wallets on Solana, Ethereum, Polygon, and more. One click, any chain, maximum privacy.',
+    label: 'Multi-Chain'
   },
   {
     color: '#060010',
-    title: 'Easy Integration',
-    description: 'Simple APIs powered by NEAR intents make it easy for developers to build ZEC-powered applications on any chain.',
-    label: 'Developer Tools'
+    title: 'ZCash Bridge',
+    description: 'Bridge your ZCash to any chain via NEAR intents. Maintain privacy while accessing the entire DeFi ecosystem.',
+    label: 'Bridge'
+  },
+  {
+    color: '#060010',
+    title: 'Auto-Expiry',
+    description: 'Wallets automatically expire for maximum privacy. Choose from 5 minutes to 1 hour based on your needs.',
+    label: 'Security'
+  },
+  {
+    color: '#060010',
+    title: 'Export & Use',
+    description: 'Export private keys to import into MetaMask, Phantom, or any wallet. Use your anonymous wallet anywhere.',
+    label: 'Compatibility'
+  },
+  {
+    color: '#060010',
+    title: 'Fund Recovery',
+    description: 'Built-in fund recovery system prevents loss. Export your keys before expiry and never lose your funds.',
+    label: 'Safety'
   }
 ];
 

@@ -1,6 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Privacy Wallet - Anonymous Temporary Wallets
 
-## Getting Started
+Generate anonymous temporary wallets for private DeFi interactions. Bridge your ZCash and get untraceable wallets on any chain. No KYC, no tracking, complete privacy.
+
+## 🔒 How Privacy Wallets Work
+
+Simple 4-step process for maximum anonymity:
+
+1. **Generate Wallet** - Create anonymous temporary wallet with auto-expiry
+2. **Bridge ZCash** - Bridge your ZEC to NEAR then to destination chain  
+3. **Export Private Key** - Get your private key to import into any wallet
+4. **Use Anonymously** - Import to MetaMask, Phantom, etc. and trade privately
+
+## 🚀 Features
+
+- **Privacy Bridge**: Complete privacy-preserving cross-chain flow
+- **Temporary Wallets**: Auto-expiring wallets with configurable privacy levels
+- **NEAR Intents Integration**: Seamless cross-chain orchestration
+- **Multi-Chain Support**: Solana, Ethereum, Polygon, and more
+- **Automatic Cleanup**: Secure deletion of temporary keys
+- **Real-time Monitoring**: Track bridge progress and wallet status
+
+## 🛠 Getting Started
 
 First, run the development server:
 
@@ -16,7 +36,17 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Key Pages
+
+- `/` - Landing page explaining Privacy Wallets
+- `/wallet` - **NEW** Privacy Wallet Generator (main interface)
+- `/generate` - Advanced wallet management and dashboard
+
+## 🔧 Privacy Levels
+
+- **High Privacy** (5 minutes): Maximum anonymity, shortest wallet lifetime
+- **Medium Privacy** (15 minutes): Balanced privacy and usability
+- **Low Privacy** (1 hour): Extended usage time with basic privacy
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

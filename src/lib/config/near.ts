@@ -1,8 +1,8 @@
 // NetworkId - moved here to avoid importing chainsig.js which has Node.js dependencies
-export const NetworkId = 'testnet';
+export const NetworkId = 'mainnet';
 
 // Verto contract ID - adjust this to your actual contract ID
-export const VertoContract = 'verto.testnet';
+export const VertoContract = 'verto.near';
 
 export const decimalToBigInt = (decimalValue: string | number, decimals: number): bigint => {
     const strValue = decimalValue.toString();

@@ -10,27 +10,21 @@ const Navbar = () => {
   return (
     <nav className="flex items-center justify-between px-16 py-4 bg-black/80 backdrop-blur-md border-b border-zinc-900">
       <Link href="/" className="text-2xl font-bold text-white">
-        ZEC × NEAR
+        Privacy Wallet
       </Link>
       
       {/* Navigation Links - Center */}
       <div className="flex-1 flex justify-center gap-4">
         <Link
-          href="/bridge"
-          className="text-white px-6 py-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+          href="/wallet"
+          className="text-white px-6 py-2 rounded-lg hover:bg-gray-800/50 transition-colors relative"
         >
-          Bridge
-        </Link>
-        <Link
-          href="/generate"
-          className="text-white px-6 py-2 rounded-lg hover:bg-gray-800/50 transition-colors"
-        >
-          Generate
+          Generate Wallet
+          <span className="absolute -top-1 -right-1 bg-yellow-400 text-black text-xs px-1.5 py-0.5 rounded-full font-bold">
+            NEW
+          </span>
         </Link>
       </div>
-      
-      {/* Wallet Selector - Right */}
-      <WalletSelector />
     </nav>
   );
 };

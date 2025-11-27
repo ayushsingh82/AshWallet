@@ -123,7 +123,6 @@ const NearWalletProvider = ({ children }: { children: ReactNode }) => {
     method,
     args = {},
   }: ViewMethodParams): Promise<unknown> => {
-    // const url = "https://rpc.shitzuapes.xyz";
     const url = `https://rpc.${NetworkId}.near.org`;
     const provider = new providers.JsonRpcProvider({ url });
 

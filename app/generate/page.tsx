@@ -8,6 +8,7 @@ import TotalBalanceCard from "./TotalBalanceCard";
 import GenerateWalletForm from "./GenerateWalletForm";
 import WalletCountCard from "./WalletCountCard";
 import EmptyState from "./EmptyState";
+import PrivacyWalletDashboard from "../components/PrivacyWalletDashboard";
 
 export default function GeneratePage() {
   const [wallets, setWallets] = useState<Wallet[]>([]);
@@ -123,6 +124,13 @@ export default function GeneratePage() {
               </div>
             )}
           </>
+        )}
+
+        {/* Privacy Wallets Section */}
+        {!showGenerateForm && (
+          <div className="mt-12">
+            <PrivacyWalletDashboard />
+          </div>
         )}
 
         {/* Empty State */}

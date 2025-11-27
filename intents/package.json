@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node components/swap.ts",
-    "dev": "ts-node --watch components/swap.ts",
+    "dev": "ts-node components/swap.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "examples:demo": "ts-node function-examples.ts demo",
@@ -20,20 +20,21 @@
     "swap": "ts-node components/swap.ts",
     "deposit": "ts-node components/deposit.ts",
     "intents": "ts-node components/intents.ts",
-    "flow:complete": "ts-node function-examples.ts complete-flow"
+    "flow:complete": "ts-node function-examples.ts complete-flow",
+    "privacy-bridge": "ts-node examples/privacy-bridge-example.ts"
   },
   "dependencies": {
-    "@defuse-protocol/one-click-sdk-typescript": "^0.1.9" ,
+    "@defuse-protocol/one-click-sdk-typescript": "^0.1.14",
     "@near-js/accounts": "^2.0.2",
     "@near-js/crypto": "^2.0.2",
     "@near-js/providers": "^2.0.2",
     "@near-js/signers": "^2.0.2",
-    "@near-js/tokens": "^2.0.2" ,
-     "dotenv": "^17.2.2"
+    "@near-js/tokens": "^2.0.2",
+    "dotenv": "^17.2.2"
   },
   "devDependencies": {
+    "@types/node": "^20.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.2",
-    "@types/node": "^20.0.0"
+    "typescript": "^5.4.2"
   }
 }

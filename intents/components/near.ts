@@ -12,7 +12,7 @@ const TGas = BigInt(1_000_000_000_000);
 
 export function getAccount() {
     const provider = new JsonRpcProvider({
-      url: "https://rpc.mainnet.fastnear.com",
+      url: "https://rpc.mainnet.near.org",
     });
 
     const privateKey = process.env.ACCOUNT_PRIVATE_KEY;

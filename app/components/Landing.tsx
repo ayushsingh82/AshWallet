@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import CreativeMetallicEffect from './CreativeMetallicEffect';
 import MagicBento from './MagicBento';
 import SplashCursor from './SplashCursor';
@@ -11,28 +12,28 @@ const Landing = () => {
 
   const faqs = [
     {
-      question: "What is this cross-chain privacy solution?",
-      answer: "A revolutionary platform that connects Zcash with multiple blockchains using NEAR intents SDK, enabling ZEC holders to access DeFi across chains while maintaining privacy. Lend, borrow, and build DeFi primitives with your ZEC on any supported chain."
+      question: "What are Privacy Wallets?",
+      answer: "Privacy Wallets are temporary, anonymous wallets that auto-expire for maximum privacy. Generate them with your ZCash, get untraceable wallets on any chain, and use them for private DeFi interactions without KYC or tracking."
     },
     {
-      question: "How does cross-chain lending work with ZEC?",
-      answer: "Using NEAR intents, you can seamlessly lend your ZEC on other chains without leaving the Zcash network. Our intent-based system orchestrates cross-chain actions, allowing you to earn yield on protocols like Aave, Compound, and more while your ZEC remains private."
+      question: "How do I use a Privacy Wallet?",
+      answer: "Simple! Generate a wallet, bridge your ZCash to fund it, then export the private key. Import this key into MetaMask, Phantom, or any wallet to start using it anonymously on your chosen chain."
     },
     {
-      question: "What is wrapped ZEC and how can I use it?",
-      answer: "Wrapped ZEC (wZEC) is ZEC tokenized on other blockchains, enabling you to use your ZEC in DeFi protocols across Ethereum, NEAR, and other chains. You can build DeFi primitives like ZEC-backed stablecoins, liquidity pools, and more."
+      question: "Why do wallets expire?",
+      answer: "Auto-expiry is a privacy feature. Temporary wallets that self-destruct leave no trace and prevent long-term tracking. Choose from 5 minutes to 1 hour based on your privacy needs."
     },
     {
-      question: "Do I need to bridge my ZEC manually?",
-      answer: "No! NEAR intents handle all cross-chain orchestration automatically. Simply express your intent (e.g., 'lend my ZEC on Ethereum'), and our system handles the rest - no manual bridging or complex transactions required."
+      question: "What if I forget to export my private key?",
+      answer: "We have built-in fund recovery! The system alerts you before expiry and provides export options. You can also set up automatic fund recovery to a main wallet address."
     },
     {
-      question: "Is my privacy maintained across chains?",
-      answer: "Yes. While wrapped ZEC on other chains follows those chains' transparency, the original ZEC remains on Zcash with full privacy. Our system is designed to maximize privacy while enabling cross-chain functionality."
+      question: "Which chains are supported?",
+      answer: "Currently Solana, Ethereum, and Polygon. Your ZCash is bridged via NEAR intents to your chosen destination chain, giving you native tokens for anonymous trading."
     },
     {
-      question: "What DeFi primitives can I build with wrapped ZEC?",
-      answer: "You can build ZEC-backed stablecoins, liquidity pools, yield farms, lending protocols, and more. The wrapped ZEC acts as collateral across multiple chains, unlocking the full potential of your ZEC holdings in the broader DeFi ecosystem."
+      question: "Is this really anonymous?",
+      answer: "Yes! The temporary wallets have no connection to your identity. They're generated with random keys, funded via privacy-preserving bridges, and expire automatically. No KYC, no tracking, complete anonymity."
     }
   ];
 
@@ -49,24 +50,62 @@ const Landing = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="text-5xl md:text-6xl font-semibold font-serif text-white mb-6 leading-tight">
-              Cross-Chain Privacy for <span className="zcash-glow">Zcash</span>
+              Anonymous <span className="zcash-glow">Privacy Wallets</span>
             </h1>
-            <p className="text-2xl text-gray-300 leading-tight mb-10 max-w-3xl">
-              Connect Zcash with multiple chains using NEAR intents. Lend, build DeFi primitives, and utilize your ZEC across the entire DeFi ecosystem — all while maintaining privacy.
+            <p className="text-2xl text-gray-300 leading-tight mb-8 max-w-3xl">
+              Generate temporary anonymous wallets for private DeFi interactions. Bridge your ZCash and get untraceable wallets on any chain. No KYC, no tracking.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/wallet"
+                className="px-8 py-4 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-300 transition-colors text-lg"
+              >
+                Generate Privacy Wallet
+              </Link>
+              <Link
+                href="#how-it-works"
+                className="px-8 py-4 border border-yellow-400 text-yellow-400 font-bold rounded-lg hover:bg-yellow-400 hover:text-black transition-colors text-lg"
+              >
+                How It Works
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="px-8 py-16 bg-black">
+      {/* How It Works Section */}
+      <section id="how-it-works" className="px-8 py-16 bg-black">
         <div className="max-w-6xl mx-auto text-center">
           <h3 className="text-3xl font-bold text-white mb-8">
-            Unlock ZEC Across All Chains
+            How Privacy Wallets Work
           </h3>
           <p className="text-lg text-gray-300 mb-16 max-w-3xl mx-auto">
-            Powered by NEAR intents SDK, seamlessly orchestrate cross-chain actions with your ZEC. Access DeFi on any chain, build innovative primitives, and spend your ZEC anywhere — all with intent-based simplicity.
+            Generate anonymous temporary wallets that auto-expire for maximum privacy. Bridge your ZCash and get untraceable wallets on Solana, Ethereum, and more.
           </p>
+
+          {/* Simple 4-step process */}
+          <div className="grid md:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+              <h4 className="font-bold text-lg mb-2">We Generate Wallet</h4>
+              <p className="text-gray-400 text-sm">We create anonymous wallet and show deposit address</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+              <h4 className="font-bold text-lg mb-2">You Deposit ZCash</h4>
+              <p className="text-gray-400 text-sm">Bridge your ZEC to our generated wallet address</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+              <h4 className="font-bold text-lg mb-2">Auto Processing</h4>
+              <p className="text-gray-400 text-sm">We automatically route to your chosen destination chain</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400 text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+              <h4 className="font-bold text-lg mb-2">Tokens Ready</h4>
+              <p className="text-gray-400 text-sm">Your anonymous wallet has tokens ready for private DeFi</p>
+            </div>
+          </div>
 
           <MagicBento 
             textAutoHide={true}

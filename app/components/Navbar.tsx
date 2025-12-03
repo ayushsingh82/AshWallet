@@ -25,6 +25,11 @@ const Navbar = () => {
           </span>
         </Link>
       </div>
+
+      {/* NEAR Wallet Connection - Right */}
+      <div className="flex items-center">
+        <WalletSelector />
+      </div>
     </nav>
   );
 };

@@ -1,24 +1,25 @@
-# Privacy Wallet - Anonymous Temporary Wallets
+# Privacy Wallet - Cross-Chain Privacy Track
 
-Generate anonymous temporary wallets for private DeFi interactions. Bridge your ZCash and get untraceable wallets on any chain. No KYC, no tracking, complete privacy.
+Generate anonymous wallets using chain signatures. Derive addresses on Solana, NEAR, and EVM chains from a single NEAR account. Swap ZCash to any supported chain via NEAR intents.
 
 ## 🔒 How Privacy Wallets Work
 
-Simple 4-step process for maximum anonymity:
+Simple flow using chain signatures and NEAR intents:
 
-1. **Generate Wallet** - Create anonymous temporary wallet with auto-expiry
-2. **Bridge ZCash** - Bridge your ZEC to NEAR then to destination chain  
-3. **Export Private Key** - Get your private key to import into any wallet
-4. **Use Anonymously** - Import to MetaMask, Phantom, etc. and trade privately
+1. **Connect NEAR Wallet** - Connect your NEAR wallet to get started
+2. **Enter Wallet Name** - Provide a unique name (path) for your wallet
+3. **Derive Address** - Chain signature derives a unique address on your chosen chain (Solana, NEAR, or EVM)
+4. **Swap ZEC to SOL** - Swap your ZEC on NEAR to SOL on Solana via NEAR intents
+5. **Use Anonymously** - Use the derived address for private DeFi interactions
 
 ## 🚀 Features
 
-- **Privacy Bridge**: Complete privacy-preserving cross-chain flow
-- **Temporary Wallets**: Auto-expiring wallets with configurable privacy levels
-- **NEAR Intents Integration**: Seamless cross-chain orchestration
-- **Multi-Chain Support**: Solana, Ethereum, Polygon, and more
-- **Automatic Cleanup**: Secure deletion of temporary keys
-- **Real-time Monitoring**: Track bridge progress and wallet status
+- **Chain Signatures**: Derive addresses on multiple chains from single NEAR account
+- **Multi-Chain Support**: Solana, NEAR, and EVM chains (Ethereum, Polygon, etc.)
+- **NEAR Intents Integration**: Seamless cross-chain swaps via NEAR intents
+- **Privacy by Design**: Each wallet name (path) generates a unique address
+- **No KYC Required**: Fully anonymous, no identity verification needed
+- **Unlimited Addresses**: Generate as many addresses as you need with different names
 
 ## 🛠 Getting Started
 
@@ -39,14 +40,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### Key Pages
 
 - `/` - Landing page explaining Privacy Wallets
-- `/wallet` - **NEW** Privacy Wallet Generator (main interface)
-- `/generate` - Advanced wallet management and dashboard
+- `/wallet` - Privacy Wallet Generator (main interface - enter name, derive address, swap)
 
-## 🔧 Privacy Levels
+## 🔗 Supported Chains
 
-- **High Privacy** (5 minutes): Maximum anonymity, shortest wallet lifetime
-- **Medium Privacy** (15 minutes): Balanced privacy and usability
-- **Low Privacy** (1 hour): Extended usage time with basic privacy
+- **Solana**: Derive Solana addresses using chain signatures
+- **NEAR**: Native NEAR addresses from your connected wallet
+- **EVM Chains**: Ethereum, Polygon, and other EVM-compatible chains
+
+## 💡 How It Works
+
+1. Connect your NEAR wallet
+2. Enter a unique wallet name (this becomes the derivation path)
+3. System derives a unique address on your chosen chain using chain signatures
+4. Swap ZEC on NEAR to SOL (or other tokens) on destination chain via NEAR intents
+5. Use the derived address for anonymous DeFi interactions
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

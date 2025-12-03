@@ -77,7 +77,7 @@ export function getAccount() {
     const { transaction } = await account.signAndSendTransaction({
       receiverId: "wrap.near",
       actions: [
-        actionCreators.functionCall("near_deposit", {}, 10n * TGas, amount),
+        actionCreators.functionCall("near_deposit", {}, BigInt(10) * TGas, amount),
         actionCreators.functionCall(
           "ft_transfer_call",
           {

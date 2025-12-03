@@ -13,23 +13,23 @@ const Landing = () => {
   const faqs = [
     {
       question: "What are Privacy Wallets?",
-      answer: "Privacy Wallets are temporary, anonymous wallets that auto-expire for maximum privacy. Generate them with your ZCash, get untraceable wallets on any chain, and use them for private DeFi interactions without KYC or tracking."
+      answer: "Privacy Wallets use chain signatures to derive unique addresses on Solana, NEAR, and EVM chains from a single NEAR account. Each wallet name (path) generates a different address, providing privacy without linking to your main wallet. No KYC, no tracking."
     },
     {
       question: "How do I use a Privacy Wallet?",
-      answer: "Simple! Generate a wallet, bridge your ZCash to fund it, then export the private key. Import this key into MetaMask, Phantom, or any wallet to start using it anonymously on your chosen chain."
+      answer: "Connect your NEAR wallet, enter a unique wallet name, and the system will derive a unique address on your chosen chain (Solana, NEAR, or EVM) using chain signatures. Swap your ZEC to the destination chain via NEAR intents, and use the derived address for anonymous DeFi interactions."
     },
     {
-      question: "Why do wallets expire?",
-      answer: "Auto-expiry is a privacy feature. Temporary wallets that self-destruct leave no trace and prevent long-term tracking. Choose from 5 minutes to 1 hour based on your privacy needs."
+      question: "How do chain signatures work?",
+      answer: "Chain signatures allow you to derive addresses on multiple chains (Solana, NEAR, EVM) from a single NEAR account. Each unique wallet name (path) generates a different address, providing privacy and flexibility. The addresses are cryptographically derived and can be recreated anytime with the same NEAR account and path."
     },
     {
-      question: "What if I forget to export my private key?",
-      answer: "We have built-in fund recovery! The system alerts you before expiry and provides export options. You can also set up automatic fund recovery to a main wallet address."
+      question: "Can I generate multiple addresses?",
+      answer: "Yes! You can generate unlimited addresses by using different wallet names (paths). Each unique name will generate a different address on your chosen chain. This allows you to separate different DeFi activities for enhanced privacy."
     },
     {
       question: "Which chains are supported?",
-      answer: "Currently Solana, Ethereum, and Polygon. Your ZCash is bridged via NEAR intents to your chosen destination chain, giving you native tokens for anonymous trading."
+      answer: "We support Solana, NEAR, and EVM chains (Ethereum, Polygon, and more). You can derive addresses on any of these chains using chain signatures from your NEAR account. Swap ZEC to any supported chain via NEAR intents."
     },
     {
       question: "Is this really anonymous?",
@@ -53,7 +53,7 @@ const Landing = () => {
               <span className="text-white hover:text-[#EBF73F] transition-colors">Anonymous</span> <span className="text-white hover:text-[#EBF73F] transition-colors">Privacy Wallets</span>
             </h1>
             <p className="text-2xl text-gray-300 leading-tight mb-8 max-w-3xl">
-              Generate temporary anonymous wallets for private DeFi interactions. Bridge your ZCash and get untraceable wallets on any chain. No KYC, no tracking.
+              Generate anonymous wallets using chain signatures. Derive addresses on Solana, NEAR, and EVM chains from a single NEAR account. Swap ZCash via NEAR intents.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -80,7 +80,7 @@ const Landing = () => {
             How Privacy Wallets Work
           </h3>
           <p className="text-lg text-gray-300 mb-16 max-w-3xl mx-auto">
-            Generate anonymous temporary wallets that auto-expire for maximum privacy. Bridge your ZCash and get untraceable wallets on Solana, Ethereum, and more.
+            Use chain signatures to derive unique addresses on Solana, NEAR, and EVM chains. Swap ZCash to any supported chain via NEAR intents. Each wallet name generates a different address.
           </p>
 
           {/* Simple 4-step process */}
@@ -93,8 +93,8 @@ const Landing = () => {
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <span className="text-[#EBF73F] relative z-10">1</span>
               </div>
-              <h4 className="font-bold text-lg mb-2 text-white">We Generate Wallet</h4>
-              <p className="text-gray-400 text-sm">We create anonymous wallet and show deposit address</p>
+              <h4 className="font-bold text-lg mb-2 text-white">Enter Wallet Name</h4>
+              <p className="text-gray-400 text-sm">Provide a unique name that will be used as the derivation path</p>
             </div>
             <div className="hidden md:block text-[#EBF73F] text-3xl">→</div>
             <div className="text-center flex-1">
@@ -105,8 +105,8 @@ const Landing = () => {
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <span className="text-[#EBF73F] relative z-10">2</span>
               </div>
-              <h4 className="font-bold text-lg mb-2 text-white">You Deposit ZCash</h4>
-              <p className="text-gray-400 text-sm">Bridge your ZEC to our generated wallet address</p>
+              <h4 className="font-bold text-lg mb-2 text-white">Derive Address</h4>
+              <p className="text-gray-400 text-sm">Chain signature derives unique address on Solana, NEAR, or EVM</p>
             </div>
             <div className="hidden md:block text-[#EBF73F] text-3xl">→</div>
             <div className="text-center flex-1">
@@ -117,8 +117,8 @@ const Landing = () => {
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <span className="text-[#EBF73F] relative z-10">3</span>
               </div>
-              <h4 className="font-bold text-lg mb-2 text-white">Auto Processing</h4>
-              <p className="text-gray-400 text-sm">We automatically route to your chosen destination chain</p>
+              <h4 className="font-bold text-lg mb-2 text-white">Swap via Intents</h4>
+              <p className="text-gray-400 text-sm">Swap ZEC on NEAR to SOL (or other tokens) via NEAR intents</p>
             </div>
             <div className="hidden md:block text-[#EBF73F] text-3xl">→</div>
             <div className="text-center flex-1">
@@ -129,8 +129,8 @@ const Landing = () => {
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
                 <span className="text-[#EBF73F] relative z-10">4</span>
               </div>
-              <h4 className="font-bold text-lg mb-2 text-white">Tokens Ready</h4>
-              <p className="text-gray-400 text-sm">Your anonymous wallet has tokens ready for private DeFi</p>
+              <h4 className="font-bold text-lg mb-2 text-white">Ready to Use</h4>
+              <p className="text-gray-400 text-sm">Your tokens arrive at the derived address, ready for DeFi</p>
             </div>
           </div>
 

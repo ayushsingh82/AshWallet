@@ -5,7 +5,6 @@ import Web3 from "web3";
 
 import { useDebounce } from "../../hooks/debounce";
 import { SIGNET_CONTRACT, MPC_CONTRACT } from "../../config";
-import { useWalletSelector } from "@near-wallet-selector/react-hook";
 import { chainAdapters } from "chainsig.js";
 import { createPublicClient, http } from "viem";
 import { bigIntToDecimal } from "../../utils/bigIntToDecimal";
@@ -52,10 +51,13 @@ export function EVMView({
     const [nearSelector, setNearSelector] = useState<WalletSelector | null>(null);
     const [nearAccountId, setNearAccountId] = useState<string | null>(signer?.accountId ?? null);
     
-    // Use external signer or fallback to wallet selector
-    const { signedAccountId, signAndSendTransactions } = useWalletSelector();
-    const finalAccountId = signer?.accountId ?? signedAccountId;
-    const finalSignAndSendTransactions = signer?.signAndSendTransactions ?? signAndSendTransactions;
+    // Use external signer or fallback to local selector
+    const finalAccountId = signer?.accountId ?? nearAccountId;
+    const finalSignAndSendTransactions = signer?.signAndSendTransactions ?? (async (params: { transactions: any[] }) => {
+      if (!nearSelector) throw new Error("NEAR Hot Wallet not initialized");
+      const wallet = await nearSelector.wallet();
+      return await wallet.signAndSendTransactions(params);
+    });
   
     const [isLoading, setIsLoading] = useState(false);
     const [currentStep, setCurrentStep] = useState("request");

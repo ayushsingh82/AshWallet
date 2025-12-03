@@ -59,3 +59,4 @@ export function getWalletsByChain(accountId: string, chain: 'solana' | 'near' | 
   return getDerivedWallets(accountId).filter(w => w.chain === chain);
 }
 
+

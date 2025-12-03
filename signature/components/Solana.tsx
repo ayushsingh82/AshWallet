@@ -125,13 +125,13 @@ export function SolanaView({ props: { setStatus }, signer }: SolanaViewProps) {
   const signAndSendTransactions = async (params: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     transactions: any[];
-  }) => {
+  }): Promise<any> => {
     if (signer) {
       return signer.signAndSendTransactions(params);
     }
     if (!nearSelector) throw new Error("NEAR Hot Wallet not initialized");
     const wallet = await nearSelector.wallet();
-    return wallet.signAndSendTransactions(params);
+    return await wallet.signAndSendTransactions(params);
   };
 
   async function handleChainSignature() {

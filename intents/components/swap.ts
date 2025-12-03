@@ -7,6 +7,7 @@ import {
 } from "./near";
 import { getQuote, waitUntilQuoteExecutionCompletes } from "./intents";
 import { NEAR } from "@near-js/tokens";
+import { ZEC_NEAR_DEFUSE_ASSET_ID, SOL_DEFUSE_ASSET_ID } from "./constants";
 
 // Loading environment variables
 require("dotenv").config({ path: ".env" });
@@ -67,8 +68,8 @@ async function swap({
 }
 
 swap({
-  inputToken: "nep141:wrap.near",
-  outputToken: "nep141:sol.omft.near",
+  inputToken: ZEC_NEAR_DEFUSE_ASSET_ID,
+  outputToken: SOL_DEFUSE_ASSET_ID,
   inputAmount: NEAR.toUnits("0.01"),
   slippageTolerance: 10, // 0.1%
 }).catch((error: unknown) => {

@@ -201,3 +201,26 @@ export const getTokenDecimals = (
   }
   return undefined;
 };
+
+// Helper function to get defuseAssetId for a token on a specific chain
+export const getDefuseAssetId = (
+  unifiedAssetId: string,
+  chainName: string
+): string | undefined => {
+  const asset = UNIFIED_ASSETS.find((a) => a.unifiedAssetId === unifiedAssetId);
+  if (!asset) return undefined;
+
+  for (const token of asset.groupedTokens) {
+    const deployment = token.deployments.find(
+      (d) => d.chainName === chainName
+    );
+    if (deployment) {
+      return token.defuseAssetId;
+    }
+  }
+  return undefined;
+};
+
+// Direct access to token defuseAssetIds
+export const ZEC_NEAR_DEFUSE_ASSET_ID = "nep141:zec.omft.near";
+export const SOL_DEFUSE_ASSET_ID = "nep141:sol.omft.near";

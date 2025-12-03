@@ -53,7 +53,7 @@ export function EVMView({
     
     // Use external signer or fallback to local selector
     const finalAccountId = signer?.accountId ?? nearAccountId;
-    const finalSignAndSendTransactions = signer?.signAndSendTransactions ?? (async (params: { transactions: any[] }) => {
+    const finalSignAndSendTransactions = signer?.signAndSendTransactions ?? (async (params: { transactions: any[] }): Promise<any> => {
       if (!nearSelector) throw new Error("NEAR Hot Wallet not initialized");
       const wallet = await nearSelector.wallet();
       return await wallet.signAndSendTransactions(params);

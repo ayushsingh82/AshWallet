@@ -7,6 +7,8 @@ import { chainAdapters } from "chainsig.js";
 import { SIGNET_CONTRACT } from "../../signature/config";
 import { useDebounce } from "../../signature/hooks/debounce";
 import { bigIntToDecimal } from "../../signature/utils/bigIntToDecimal";
+import { saveDerivedWallet, DerivedWallet } from "./utils";
+import Link from "next/link";
 
 interface WalletStep {
   id: string;
@@ -89,19 +91,30 @@ export default function WalletPage() {
         setIsDeriving(true);
         setError('');
 
-        // Sanitize the path - ensure it's safe for derivation
-        const sanitizedPath = debouncedWalletName.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '-');
-        
+        // Use the original path name - the path is just an identifier for derivation
         const { publicKey } = await Solana.deriveAddressAndPublicKey(
           accountId,
-          sanitizedPath
+          debouncedWalletName.trim() // Use original path name
         );
 
         setDerivedAddress(publicKey);
 
         // Get balance
         const balance = await Solana.getBalance(publicKey);
-        setSolBalance(bigIntToDecimal(balance.balance, balance.decimals));
+        const balanceStr = bigIntToDecimal(balance.balance, balance.decimals);
+        setSolBalance(balanceStr);
+
+        // Save to localStorage
+        const wallet: DerivedWallet = {
+          id: `${accountId}-${debouncedWalletName.trim()}-solana-${Date.now()}`,
+          path: debouncedWalletName.trim(),
+          address: publicKey,
+          chain: 'solana',
+          accountId: accountId,
+          createdAt: new Date().toISOString(),
+          balance: balanceStr
+        };
+        saveDerivedWallet(wallet);
 
         setCurrentStep('derive');
       } catch (err) {
@@ -151,9 +164,17 @@ export default function WalletPage() {
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white hover:text-[#EBF73F] transition-colors">
-            Privacy Wallet
-          </h1>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-white hover:text-[#EBF73F] transition-colors">
+              Privacy Wallet
+            </h1>
+            <Link
+              href="/wallet/my-wallets"
+              className="px-6 py-2 bg-[#EBF73F] text-black font-bold rounded-lg hover:bg-[#e8eb9f] transition-colors"
+            >
+              My Wallets
+            </Link>
+          </div>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Generate anonymous Solana addresses using chain signatures. 
             Swap ZEC to SOL via NEAR intents.

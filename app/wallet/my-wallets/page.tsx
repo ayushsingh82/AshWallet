@@ -17,7 +17,25 @@ export default function MyWalletsPage() {
   useEffect(() => {
     if (accountId && status === 'authenticated') {
       const userWallets = getDerivedWallets(accountId);
-      setWallets(userWallets);
+      
+      // Add dummy wallet for testing (will be removed later)
+      const dummyWallet: DerivedWallet = {
+        id: 'dummy-solana-2',
+        path: 'solana-2',
+        address: '5qKow5dTuF22WbTJwxHTJD3iGuqEfc65TyV7ctBF9Cwg',
+        chain: 'solana',
+        accountId: accountId,
+        createdAt: new Date().toISOString(),
+        balance: '0.5'
+      };
+      
+      // Check if dummy wallet already exists
+      const hasDummy = userWallets.some(w => w.id === 'dummy-solana-2');
+      if (!hasDummy) {
+        setWallets([...userWallets, dummyWallet]);
+      } else {
+        setWallets(userWallets);
+      }
     } else {
       setWallets([]);
     }
@@ -78,13 +96,13 @@ export default function MyWalletsPage() {
   const getChainIcon = (chain: string) => {
     switch (chain) {
       case 'solana':
-        return '🟣';
+        return '';
       case 'near':
-        return '🟡';
+        return '';
       case 'evm':
-        return '🔷';
+        return '';
       default:
-        return '⚪';
+        return '';
     }
   };
 

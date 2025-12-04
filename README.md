@@ -1,6 +1,8 @@
 # Privacy Wallet - Cross-Chain Privacy Track
 
-Generate anonymous wallets using chain signatures. Derive addresses on Solana, NEAR, and EVM chains from a single NEAR account. Swap ZCash to any supported chain via NEAR intents.
+Generate anonymous wallets using chain signatures. Derive addresses on Solana, NEAR, and EVM chains from a single NEAR account. Swap ZCash to any supported tokn on any chain via NEAR intents.
+
+![Flow Diagram](/flow.png)
 
 ## 🔒 How Privacy Wallets Work
 

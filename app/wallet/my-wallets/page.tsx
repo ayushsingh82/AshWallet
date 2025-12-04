@@ -33,15 +33,19 @@ export default function MyWalletsPage() {
         chain: 'solana',
         accountId: accountId,
         createdAt: new Date().toISOString(),
-        balance: '0.5'
+        balance: '0.0012'
       };
       
-      // Check if dummy wallet already exists
-      const hasDummy = userWallets.some(w => w.id === 'dummy-solana-2');
-      if (!hasDummy) {
+      // Check if dummy wallet already exists and update it
+      const dummyIndex = userWallets.findIndex(w => w.id === 'dummy-solana-2');
+      if (dummyIndex === -1) {
+        // Add new dummy wallet
         setWallets([...userWallets, dummyWallet]);
       } else {
-        setWallets(userWallets);
+        // Update existing dummy wallet balance
+        const updatedWallets = [...userWallets];
+        updatedWallets[dummyIndex] = { ...updatedWallets[dummyIndex], balance: '0.0012' };
+        setWallets(updatedWallets);
       }
     } else {
       setWallets([]);
@@ -290,19 +294,31 @@ export default function MyWalletsPage() {
               <div className="bg-[#141414] border border-gray-700 rounded-lg p-4">
                 <h3 className="text-sm font-semibold text-[#EBF73F] mb-3">Token Balances</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-black border border-gray-700 rounded-lg p-3">
+                  <div className="bg-black border border-gray-700 rounded-lg p-3 relative group">
+                    <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                    <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
                     <p className="text-xs text-gray-400 mb-1">SOL (on Solana)</p>
                     <p className="text-lg font-bold text-white">
                       {balances.loading ? "Loading..." : balances.sol}
                     </p>
                   </div>
-                  <div className="bg-black border border-gray-700 rounded-lg p-3">
+                  <div className="bg-black border border-gray-700 rounded-lg p-3 relative group">
+                    <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                    <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
                     <p className="text-xs text-gray-400 mb-1">NEAR (on NEAR)</p>
                     <p className="text-lg font-bold text-white">
                       {balances.loading ? "Loading..." : balances.near}
                     </p>
                   </div>
-                  <div className="bg-black border border-gray-700 rounded-lg p-3">
+                  <div className="bg-black border border-gray-700 rounded-lg p-3 relative group">
+                    <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-[#EBF73F]"></div>
+                    <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-[#EBF73F]"></div>
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-[#EBF73F]"></div>
                     <p className="text-xs text-gray-400 mb-1">ZEC (on NEAR)</p>
                     <p className="text-lg font-bold text-white">
                       {balances.loading ? "Loading..." : balances.zec}
@@ -467,7 +483,11 @@ export default function MyWalletsPage() {
 
         {/* Stats */}
         {isConnected && wallets.length > 0 && (
-          <div className="mt-12 bg-[#141414] border border-gray-700 rounded-xl p-6">
+          <div className="mt-12 bg-[#141414] border border-gray-700 rounded-xl p-6 relative group">
+            <div className="absolute top-0 left-0 w-3 h-3 border-l-2 border-t-2 border-[#EBF73F]"></div>
+            <div className="absolute top-0 right-0 w-3 h-3 border-r-2 border-t-2 border-[#EBF73F]"></div>
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
             <h3 className="text-xl font-bold mb-4 text-[#EBF73F]">Statistics</h3>
             <div className="grid md:grid-cols-4 gap-4">
               <div>

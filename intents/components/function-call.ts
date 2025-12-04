@@ -36,6 +36,7 @@ async function depositZec({ inputAmount }: DepositZecOptions): Promise<void> {
   
   // Check ZEC balance in the intents contract (as multi-token)
   const intentsBalance = await getAccountBalanceOfToken(account, ZEC_NEAR_DEFUSE_ASSET_ID);
+  console.log(`ZEC balance in intents contract: ${intentsBalance}`);
   
   // Check balance in the FT contract (zec.omft.near)
   let ftBalance = BigInt(0);
@@ -49,8 +50,10 @@ async function depositZec({ inputAmount }: DepositZecOptions): Promise<void> {
       }
     );
     ftBalance = BigInt(result as string);
+    console.log(`ZEC balance in FT contract (${ftContractId}): ${ftBalance}`);
   } catch (error) {
-    console.log("Could not check FT contract balance, assuming 0");
+    console.log("Could not check FT contract balance:", error);
+    console.log("Assuming 0 for FT contract balance");
   }
   
   const totalBalance = intentsBalance + ftBalance;
@@ -142,13 +145,24 @@ async function swapZecToSol({
   const account = getAccount();
 
   console.log(
-    `Checking the balance of ZEC for the account ${account.accountId}`
+    `Checking the balance of ZEC in intents contract for the account ${account.accountId}`
   );
-  const balance = await getAccountBalanceOfToken(account, ZEC_NEAR_DEFUSE_ASSET_ID);
+  
+  // Only check intents contract balance (where ZEC is after deposit)
+  let balance = BigInt(0);
+  try {
+    balance = await getAccountBalanceOfToken(account, ZEC_NEAR_DEFUSE_ASSET_ID);
+    console.log(`ZEC balance in intents contract: ${balance}`);
+  } catch (error) {
+    console.error("Error checking ZEC balance:", error);
+    throw new Error(
+      `Failed to check ZEC balance in intents contract. Make sure you have deposited ZEC first.`
+    );
+  }
 
   if (balance < inputAmount) {
     throw new Error(
-      `Insufficient balance of ZEC for swapping (required: ${inputAmount}, your: ${balance})`
+      `Insufficient balance of ZEC in intents contract for swapping (required: ${inputAmount}, available: ${balance}). Please deposit ZEC first using 'npm run zec:deposit'`
     );
   }
 
@@ -308,7 +322,7 @@ if (require.main === module) {
   switch (command) {
     case "deposit-zec":
       depositZec({
-        inputAmount: BigInt(10000000), // 0.1 ZEC (8 decimals)
+        inputAmount: BigInt(30000), // 0.0003 ZEC (8 decimals)
       }).catch((error: unknown) => {
         const { styleText } = require("node:util");
         if (error instanceof Error) {
@@ -321,7 +335,7 @@ if (require.main === module) {
 
     case "swap":
       swapZecToSol({
-        inputAmount: BigInt(10000000), // 0.1 ZEC (8 decimals)
+        inputAmount: BigInt(30000), // 0.0003 ZEC (8 decimals)
         slippageTolerance: 10, // 0.1%
       }).catch((error: unknown) => {
         const { styleText } = require("node:util");

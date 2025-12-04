@@ -67,10 +67,13 @@ async function swap({
   console.log(`Swap was settled successfully!`);
 }
 
+// ZEC has 8 decimals, so 0.0003 ZEC = 0.0003 * 10^8 = 30000
+const zecAmount = BigInt(30000); // 0.0003 ZEC
+
 swap({
   inputToken: ZEC_NEAR_DEFUSE_ASSET_ID,
   outputToken: SOL_DEFUSE_ASSET_ID,
-  inputAmount: NEAR.toUnits("0.01"),
+  inputAmount: zecAmount,
   slippageTolerance: 10, // 0.1%
 }).catch((error: unknown) => {
   const { styleText } = require("node:util");

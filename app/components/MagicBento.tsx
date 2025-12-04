@@ -33,7 +33,7 @@ const cardData: BentoCardProps[] = [
   {
     color: '#000000',
     title: 'Anonymous Wallets',
-    description: 'Generate temporary wallets with auto-expiry. No KYC, no tracking, complete anonymity for your DeFi interactions.',
+    description: 'Generate unique wallets using chain signatures. No KYC, no tracking, complete anonymity for your DeFi interactions.',
     label: 'Privacy'
   },
   {
@@ -50,9 +50,9 @@ const cardData: BentoCardProps[] = [
   },
   {
     color: '#000000',
-    title: 'Auto-Expiry',
-    description: 'Wallets automatically expire for maximum privacy. Choose from 5 minutes to 1 hour based on your needs.',
-    label: 'Security'
+    title: 'Wallet Dashboard',
+    description: 'View and manage all your derived wallets in one place. Track balances, addresses, and transaction history.',
+    label: 'Dashboard'
   },
   {
     color: '#000000',
@@ -63,7 +63,7 @@ const cardData: BentoCardProps[] = [
   {
     color: '#000000',
     title: 'Fund Recovery',
-    description: 'Built-in fund recovery system prevents loss. Export your keys before expiry and never lose your funds.',
+    description: 'Access your wallets anytime using your NEAR account and wallet name. Your addresses are always recoverable.',
     label: 'Safety'
   }
 ];

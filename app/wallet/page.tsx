@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNearWallet } from "../../src/provider/wallet";
 import { Connection as SolanaConnection } from "@solana/web3.js";
 import { chainAdapters } from "chainsig.js";
 import { SIGNET_CONTRACT } from "../../signature/config";
 import { useDebounce } from "../../signature/hooks/debounce";
 import { bigIntToDecimal } from "../../signature/utils/bigIntToDecimal";
-import { saveDerivedWallet, DerivedWallet } from "./utils";
+import { saveDerivedWallet, DerivedWallet, getDerivedWallets } from "./utils";
 import Link from "next/link";
 
 interface WalletStep {
@@ -17,17 +17,23 @@ interface WalletStep {
   status: 'pending' | 'active' | 'completed';
 }
 
-const connection = new SolanaConnection("https://api.mainnet-beta.solana.com");
-const Solana = new chainAdapters.solana.Solana({
-  solanaConnection: connection,
-  contract: SIGNET_CONTRACT,
-});
-
 export default function WalletPage() {
   const { accountId, status } = useNearWallet();
+  
+  // Create Solana adapter using useMemo to ensure proper initialization
+  // Use devnet to match SolanaView component
+  const Solana = useMemo(() => {
+    const connection = new SolanaConnection("https://api.devnet.solana.com");
+    return new chainAdapters.solana.Solana({
+      solanaConnection: connection,
+      contract: SIGNET_CONTRACT,
+    });
+  }, []);
   const [currentStep, setCurrentStep] = useState<'name' | 'derive' | 'swap' | 'ready'>('name');
   const [walletName, setWalletName] = useState('');
   const [derivedAddress, setDerivedAddress] = useState('');
+  const [derivedPath, setDerivedPath] = useState(''); // Store the numeric path used
+  const [addressDisplay, setAddressDisplay] = useState(''); // Display address in the box
   const [solBalance, setSolBalance] = useState('');
   const [isDeriving, setIsDeriving] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
@@ -63,76 +69,199 @@ export default function WalletPage() {
     }
   ];
 
-  // Validate wallet name (base58 characters for Solana paths)
+  // Validate wallet name format (only format check, no API call)
   const isValidWalletName = (name: string): boolean => {
-    if (!name || name.trim().length === 0) return false;
-    // Allow alphanumeric, hyphens, and underscores for path names
-    // The path itself doesn't need to be base58, but we'll validate it's reasonable
+    if (!name) return false;
+    const trimmedName = name.trim();
+    if (trimmedName.length === 0) return false;
+    if (trimmedName.length > 50) return false;
+    // Allow alphanumeric, hyphens, and underscores
     const validPattern = /^[a-zA-Z0-9_-]+$/;
-    return validPattern.test(name) && name.length <= 50;
+    const isValid = validPattern.test(trimmedName);
+    return isValid;
   };
 
-  // Derive Solana address when wallet name changes
+  // Real-time validation (format only, no API calls)
   useEffect(() => {
-    if (!debouncedWalletName || !accountId || currentStep !== 'name') return;
+    // Clear error if input is empty
+    if (!walletName || walletName.trim().length === 0) {
+      setError('');
+      return;
+    }
     
-    // Validate wallet name
-    if (!isValidWalletName(debouncedWalletName)) {
-      if (debouncedWalletName.trim().length > 0) {
-        setError('Wallet name can only contain letters, numbers, hyphens, and underscores');
-      } else {
-        setError('');
-      }
+    const trimmedName = walletName.trim();
+    const isValid = isValidWalletName(trimmedName);
+    
+    // Only show validation errors, clear API errors when input becomes valid
+    if (!isValid) {
+      setError('Invalid wallet name. Please use only letters, numbers, hyphens, and underscores.');
+    } else {
+      // Clear any previous errors (including API errors) when name becomes valid
+      // This ensures that if user fixes the name, old API errors don't persist
+      setError('');
+    }
+  }, [walletName]);
+
+  // Get the next available numeric path for this account
+  const getNextNumericPath = (): string => {
+    const existingWallets = getDerivedWallets(accountId || undefined);
+    const solanaWallets = existingWallets.filter(w => w.chain === 'solana');
+    
+    // Extract numeric paths and find the highest number
+    const pathNumbers = solanaWallets
+      .map(w => {
+        // Check if path is in format "solana-X" where X is a number
+        const match = w.path.match(/^solana-(\d+)$/);
+        return match ? parseInt(match[1], 10) : 0;
+      })
+      .filter(n => n > 0);
+    
+    const nextNumber = pathNumbers.length > 0 ? Math.max(...pathNumbers) + 1 : 1;
+    return `solana-${nextNumber}`;
+  };
+
+  // Handle button click to derive address
+  const handleDeriveAddress = async () => {
+    if (!accountId) {
+      setError('Please connect your NEAR wallet first');
       return;
     }
 
-    const deriveAddress = async () => {
+    const trimmedName = walletName.trim();
+    
+    // Clear any previous errors and validate
+    setError('');
+    
+    if (!trimmedName) {
+      setError('Please enter a wallet name');
+      return;
+    }
+    
+    if (!isValidWalletName(trimmedName)) {
+      setError('Invalid wallet name. Please use only letters, numbers, hyphens, and underscores.');
+      return;
+    }
+
+    try {
+      setIsDeriving(true);
+      setError(''); // Clear any previous errors before API call
+      setAddressDisplay(`Deriving address from path ${getNextNumericPath()}...`); // Show loading state
+
+      // Use numeric path format like "solana-1", "solana-2", etc.
+      // This matches the working SolanaView component
+      const derivationPath = getNextNumericPath();
+
+      console.log('Deriving address with:', { 
+        accountId, 
+        walletName: trimmedName,
+        derivationPath,
+        solanaConnection: 'https://api.devnet.solana.com'
+      });
+
+      // Derive the address using numeric path
+      // The chainsig library derives addresses from the chain signature contract
+      // This should work without signing - it's just a derivation, not a transaction
+      console.log('Calling deriveAddressAndPublicKey with:', { 
+        accountId, 
+        derivationPath,
+        networkId: 'mainnet' // SIGNET_CONTRACT uses mainnet
+      });
+      
+      let result;
       try {
-        setIsDeriving(true);
-        setError('');
-
-        // Use the original path name - the path is just an identifier for derivation
-        const { publicKey } = await Solana.deriveAddressAndPublicKey(
+        result = await Solana.deriveAddressAndPublicKey(
           accountId,
-          debouncedWalletName.trim() // Use original path name
+          derivationPath
         );
-
-        setDerivedAddress(publicKey);
-
-        // Get balance
-        const balance = await Solana.getBalance(publicKey);
-        const balanceStr = bigIntToDecimal(balance.balance, balance.decimals);
-        setSolBalance(balanceStr);
-
-        // Save to localStorage
-        const wallet: DerivedWallet = {
-          id: `${accountId}-${debouncedWalletName.trim()}-solana-${Date.now()}`,
-          path: debouncedWalletName.trim(),
-          address: publicKey,
-          chain: 'solana',
-          accountId: accountId,
-          createdAt: new Date().toISOString(),
-          balance: balanceStr
-        };
-        saveDerivedWallet(wallet);
-
-        setCurrentStep('derive');
-      } catch (err) {
-        console.error('Error deriving address:', err);
-        const errorMessage = err instanceof Error ? err.message : 'Failed to derive address';
-        // Provide more helpful error messages
-        if (errorMessage.includes('base58') || errorMessage.includes('Non-base58')) {
-          setError('Invalid wallet name. Please use only letters, numbers, hyphens, and underscores.');
-        } else {
-          setError(errorMessage);
+        console.log('deriveAddressAndPublicKey returned:', result);
+        console.log('Result type:', typeof result);
+        if (result && typeof result === 'object') {
+          console.log('Result keys:', Object.keys(result));
+          console.log('publicKey value:', result.publicKey);
+          console.log('publicKey type:', typeof result.publicKey);
         }
-      } finally {
-        setIsDeriving(false);
+      } catch (deriveError) {
+        console.error('Error in deriveAddressAndPublicKey call:', deriveError);
+        console.error('Error details:', {
+          message: deriveError instanceof Error ? deriveError.message : String(deriveError),
+          stack: deriveError instanceof Error ? deriveError.stack : 'No stack',
+          accountId,
+          derivationPath
+        });
+        throw deriveError;
       }
-    };
 
-    deriveAddress();
-  }, [debouncedWalletName, accountId]);
+      // Check if result has publicKey
+      if (!result || typeof result !== 'object') {
+        throw new Error(`Invalid result from deriveAddressAndPublicKey: ${JSON.stringify(result)}`);
+      }
+
+      const { publicKey } = result;
+      
+      if (!publicKey) {
+        throw new Error(`No publicKey in result: ${JSON.stringify(result)}`);
+      }
+
+      console.log('Derived public key:', publicKey, 'Type:', typeof publicKey, 'Length:', publicKey?.length);
+
+      setDerivedAddress(publicKey);
+      setAddressDisplay(publicKey); // Update the address display box
+      setDerivedPath(derivationPath); // Store the numeric path used
+
+      // Get balance
+      const balance = await Solana.getBalance(publicKey);
+      const balanceStr = bigIntToDecimal(balance.balance, balance.decimals);
+      setSolBalance(balanceStr);
+
+      // Save to localStorage - store the numeric path (needed for re-derivation)
+      // The path field stores the numeric path like "solana-1" which is required for chain signatures
+      const wallet: DerivedWallet = {
+        id: `${accountId}-${derivationPath}-solana-${Date.now()}`,
+        path: derivationPath, // Store numeric path (required for chain signature derivation)
+        address: publicKey,
+        chain: 'solana',
+        accountId: accountId,
+        createdAt: new Date().toISOString(),
+        balance: balanceStr
+      };
+      saveDerivedWallet(wallet);
+      
+      // Also store the custom name mapping if needed (optional enhancement)
+      // For now, users can see their wallet by the numeric path in the dashboard
+      
+      console.log('Successfully derived address:', publicKey);
+
+      setCurrentStep('derive');
+    } catch (err) {
+      console.error('Error deriving address:', err);
+      console.error('Error details:', {
+        accountId,
+        path: trimmedName,
+        errorType: err instanceof Error ? err.constructor.name : typeof err,
+        errorMessage: err instanceof Error ? err.message : String(err),
+        errorStack: err instanceof Error ? err.stack : undefined
+      });
+      
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      const errorString = String(err).toLowerCase();
+      
+      // Provide more helpful error messages
+      if (errorString.includes('base58') || errorString.includes('non-base58') || errorString.includes('invalid character')) {
+        setError('Invalid wallet name format. Please use only letters, numbers, hyphens, and underscores.');
+      } else if (errorString.includes('network') || errorString.includes('fetch') || errorString.includes('connection')) {
+        setError('Network error. Please check your connection and try again.');
+      } else if (errorString.includes('account') || errorString.includes('wallet') || errorString.includes('signer')) {
+        setError('Account error. Please make sure you are connected to your NEAR wallet.');
+      } else if (errorString.includes('path') || errorString.includes('derivation')) {
+        setError(`Path error: ${errorMessage}. Try using a different wallet name.`);
+      } else {
+        // Show the actual error message for better debugging
+        setError(`Failed to derive address: ${errorMessage}`);
+      }
+    } finally {
+      setIsDeriving(false);
+    }
+  };
 
   const handleSwap = async () => {
     if (!derivedAddress || !zecAmount || !accountId) {
@@ -242,7 +371,7 @@ export default function WalletPage() {
               <div className="text-center">
                 <h3 className="text-2xl font-bold mb-4">Enter Wallet Name</h3>
                 <p className="text-gray-400 mb-8">
-                  Give your wallet a unique name. This name will be used as the path to derive your Solana address.
+                  Give your wallet a unique name for identification. The system will automatically use numeric paths (solana-1, solana-2, etc.) for address derivation.
                 </p>
               </div>
 
@@ -259,10 +388,9 @@ export default function WalletPage() {
                       // Only allow alphanumeric, hyphens, and underscores
                       if (value === '' || /^[a-zA-Z0-9_-]*$/.test(value)) {
                         setWalletName(value);
-                        setError(''); // Clear error when user types
                       }
                     }}
-                    placeholder="e.g., defi-swap-1, nft-purchase, yield-farming"
+                    placeholder="solana-1"
                     className={`w-full px-4 py-3 bg-black border rounded-lg text-white placeholder-gray-500 focus:outline-none ${
                       error && walletName ? 'border-red-500' : 'border-gray-600 focus:border-[#EBF73F]'
                     }`}
@@ -272,6 +400,16 @@ export default function WalletPage() {
                   <p className="text-xs text-gray-400 mt-2">
                     Each unique name will generate a different Solana address. Use only letters, numbers, hyphens (-), and underscores (_).
                   </p>
+                  
+                  {/* Address Display Box - similar to SolanaView */}
+                  {(addressDisplay || isDeriving) && (
+                    <div className="mt-4 p-4 bg-black border border-dashed border-gray-600 rounded-lg">
+                      <p className="text-xs text-gray-400 mb-1">Derived Solana Address:</p>
+                      <p className="font-mono text-sm text-white break-all">
+                        {isDeriving && !addressDisplay ? 'Deriving address...' : addressDisplay}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {isConnected && (
@@ -290,9 +428,23 @@ export default function WalletPage() {
               </div>
 
               <div className="text-center">
-                <p className="text-sm text-gray-400">
-                  {isDeriving ? 'Deriving address...' : 'Enter a name above to continue'}
-                </p>
+                <button
+                  onClick={handleDeriveAddress}
+                  disabled={!isConnected || isDeriving || !walletName.trim() || !isValidWalletName(walletName.trim())}
+                  className="px-8 py-4 bg-[#EBF73F] text-black font-bold text-lg rounded-lg hover:bg-[#e8eb9f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isDeriving ? 'Deriving Address...' : 'Derive Address'}
+                </button>
+                {!isConnected && (
+                  <p className="text-sm text-gray-400 mt-4">
+                    Please connect your NEAR wallet to continue
+                  </p>
+                )}
+                {walletName.trim() && !isValidWalletName(walletName.trim()) && (
+                  <p className="text-sm text-red-400 mt-2">
+                    Please enter a valid wallet name
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -315,8 +467,12 @@ export default function WalletPage() {
                 
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm text-gray-400 mb-2">Wallet Name (Path):</p>
+                    <p className="text-sm text-gray-400 mb-2">Wallet Name:</p>
                     <p className="font-mono text-lg text-[#EBF73F]">{walletName}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400 mb-2">Derivation Path Used:</p>
+                    <p className="font-mono text-sm text-gray-300">{derivedPath}</p>
                   </div>
                   
                   <div>
@@ -455,6 +611,8 @@ export default function WalletPage() {
                     setCurrentStep('name');
                     setWalletName('');
                     setDerivedAddress('');
+                    setDerivedPath('');
+                    setAddressDisplay('');
                     setSolBalance('');
                     setZecAmount('');
                     setError('');

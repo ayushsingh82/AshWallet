@@ -33,7 +33,7 @@ const Landing = () => {
     },
     {
       question: "Is this really anonymous?",
-      answer: "Yes! The temporary wallets have no connection to your identity. They're generated with random keys, funded via privacy-preserving bridges, and expire automatically. No KYC, no tracking, complete anonymity."
+      answer: "Yes! The wallets have no connection to your identity. They're generated using chain signatures from your NEAR account, funded via privacy-preserving bridges. No KYC, no tracking, complete anonymity. View all your wallets in the dashboard."
     }
   ];
 
@@ -64,7 +64,7 @@ const Landing = () => {
               </Link>
               <Link
                 href="#how-it-works"
-                className="px-8 py-4 border border-[#EBF73F] text-[#EBF73F] font-bold rounded-lg hover:bg-[#EBF73F] hover:text-black transition-colors text-lg"
+                className="px-8 py-4 border border-gray-600 text-gray-300 font-bold rounded-lg hover:border-[#EBF73F] hover:text-[#EBF73F] transition-colors text-lg"
               >
                 How It Works
               </Link>

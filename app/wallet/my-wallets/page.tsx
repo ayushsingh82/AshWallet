@@ -4,15 +4,22 @@ import { useState, useEffect } from "react";
 import { useNearWallet } from "../../../src/provider/wallet";
 import { getDerivedWallets, DerivedWallet, deleteDerivedWallet } from "../utils";
 import Link from "next/link";
+import { INTENTS_CONTRACT_ID, SOL_DEFUSE_ASSET_ID, ZEC_NEAR_DEFUSE_ASSET_ID } from "../../../intents/components/constants";
 
 export default function MyWalletsPage() {
-  const { accountId, status } = useNearWallet();
+  const { accountId, status, viewMethod } = useNearWallet();
   const [wallets, setWallets] = useState<DerivedWallet[]>([]);
   const [filterChain, setFilterChain] = useState<'all' | 'solana' | 'near' | 'evm'>('all');
   const [selectedWallet, setSelectedWallet] = useState<DerivedWallet | null>(null);
   const [spendModalOpen, setSpendModalOpen] = useState(false);
   const [recipientAddress, setRecipientAddress] = useState("");
   const [amount, setAmount] = useState("");
+  const [balances, setBalances] = useState({
+    sol: "0",
+    near: "0",
+    zec: "0",
+    loading: true
+  });
 
   useEffect(() => {
     if (accountId && status === 'authenticated') {
@@ -40,6 +47,134 @@ export default function MyWalletsPage() {
       setWallets([]);
     }
   }, [accountId, status]);
+
+  // Fetch token balances
+  useEffect(() => {
+    const fetchBalances = async () => {
+      if (!accountId || status !== 'authenticated' || !viewMethod) {
+        setBalances({ sol: "0", near: "0", zec: "0", loading: false });
+        return;
+      }
+
+      setBalances({ sol: "0", near: "0", zec: "0", loading: true });
+
+      try {
+        // Fetch SOL balance (on NEAR intents)
+        const solBalance = await viewMethod({
+          contractId: INTENTS_CONTRACT_ID,
+          method: "mt_balance_of",
+          args: {
+            account_id: accountId,
+            token_id: SOL_DEFUSE_ASSET_ID,
+          },
+        });
+
+        // Fetch ZEC balance - check both FT contract and intents contract
+        let zecBalanceIntents = "0";
+        let zecBalanceFT = "0";
+        
+        // Check intents contract
+        try {
+          const intentsResult = await viewMethod({
+            contractId: INTENTS_CONTRACT_ID,
+            method: "mt_balance_of",
+            args: {
+              account_id: accountId,
+              token_id: ZEC_NEAR_DEFUSE_ASSET_ID,
+            },
+          });
+          zecBalanceIntents = intentsResult ? (intentsResult as string) : "0";
+          console.log("ZEC balance from intents:", zecBalanceIntents);
+        } catch (intentsError) {
+          console.log("ZEC not found in intents contract:", intentsError);
+        }
+        
+        // Check FT contract
+        try {
+          const ftResult = await viewMethod({
+            contractId: "zec.omft.near",
+            method: "ft_balance_of",
+            args: {
+              account_id: accountId,
+            },
+          });
+          zecBalanceFT = ftResult ? (ftResult as string) : "0";
+          console.log("ZEC balance from FT contract:", zecBalanceFT);
+        } catch (ftError) {
+          console.log("ZEC not found in FT contract:", ftError);
+        }
+        
+        // Sum both balances
+        const totalZecBalance = (BigInt(zecBalanceIntents) + BigInt(zecBalanceFT)).toString();
+        console.log("Total ZEC balance (intents + FT):", totalZecBalance);
+
+        // Fetch NEAR balance (wrapped NEAR on NEAR intents)
+        const nearBalance = await viewMethod({
+          contractId: INTENTS_CONTRACT_ID,
+          method: "mt_balance_of",
+          args: {
+            account_id: accountId,
+            token_id: "nep141:wrap.near",
+          },
+        });
+
+        // Format balances (SOL has 9 decimals, ZEC has 8 decimals, NEAR has 24 decimals)
+        const formatBalance = (balance: string | number | null | undefined, decimals: number, maxDisplayDecimals?: number): string => {
+          if (!balance || balance === null || balance === undefined) {
+            return "0";
+          }
+          
+          try {
+            const balanceStr = balance.toString().trim();
+            if (!balanceStr || balanceStr === "0" || balanceStr === "") {
+              return "0";
+            }
+            
+            const balanceBigInt = BigInt(balanceStr);
+            const divisor = BigInt(10 ** decimals);
+            const whole = balanceBigInt / divisor;
+            const fractional = balanceBigInt % divisor;
+            
+            if (fractional === 0n) {
+              return whole.toString();
+            }
+            
+            // Preserve trailing zeros by padding and not trimming
+            let fractionalStr = fractional.toString().padStart(decimals, '0');
+            
+            // If maxDisplayDecimals is specified, limit the display
+            if (maxDisplayDecimals !== undefined && maxDisplayDecimals < decimals) {
+              // Round to maxDisplayDecimals
+              const displayDivisor = BigInt(10 ** (decimals - maxDisplayDecimals));
+              const roundedFractional = (fractional + displayDivisor / 2n) / displayDivisor;
+              fractionalStr = roundedFractional.toString().padStart(maxDisplayDecimals, '0');
+            }
+            
+            return `${whole}.${fractionalStr}`;
+          } catch (error) {
+            console.error("Error formatting balance:", balance, error);
+            return "0";
+          }
+        };
+
+        setBalances({
+          sol: formatBalance(solBalance as string, 9),
+          near: formatBalance(nearBalance as string, 24, 2), // Show only 2 decimal places for NEAR
+          zec: formatBalance(totalZecBalance, 8),
+          loading: false,
+        });
+      } catch (error) {
+        console.error("Error fetching balances:", error);
+        console.error("Error details:", {
+          accountId,
+          error: error instanceof Error ? error.message : String(error),
+        });
+        setBalances({ sol: "0", near: "0", zec: "0", loading: false });
+      }
+    };
+
+    fetchBalances();
+  }, [accountId, status, viewMethod]);
 
   const filteredWallets = filterChain === 'all' 
     ? wallets 
@@ -144,10 +279,37 @@ export default function MyWalletsPage() {
           </div>
 
           {isConnected && (
-            <div className="bg-blue-900/20 border border-blue-500 rounded-lg p-4">
-              <p className="text-blue-200">
-                💡 Connected as: <span className="font-mono">{accountId}</span>
-              </p>
+            <div className="space-y-4">
+              <div className="bg-blue-900/20 border border-blue-500 rounded-lg p-4">
+                <p className="text-blue-200">
+                  💡 Connected as: <span className="font-mono">{accountId}</span>
+                </p>
+              </div>
+              
+              {/* Token Balances */}
+              <div className="bg-[#141414] border border-gray-700 rounded-lg p-4">
+                <h3 className="text-sm font-semibold text-[#EBF73F] mb-3">Token Balances</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-black border border-gray-700 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 mb-1">SOL (on Solana)</p>
+                    <p className="text-lg font-bold text-white">
+                      {balances.loading ? "Loading..." : balances.sol}
+                    </p>
+                  </div>
+                  <div className="bg-black border border-gray-700 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 mb-1">NEAR (on NEAR)</p>
+                    <p className="text-lg font-bold text-white">
+                      {balances.loading ? "Loading..." : balances.near}
+                    </p>
+                  </div>
+                  <div className="bg-black border border-gray-700 rounded-lg p-3">
+                    <p className="text-xs text-gray-400 mb-1">ZEC (on NEAR)</p>
+                    <p className="text-lg font-bold text-white">
+                      {balances.loading ? "Loading..." : balances.zec}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>

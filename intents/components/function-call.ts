@@ -291,6 +291,10 @@ export {
   swapZecToSol,
   withdrawSol,
   completeFlow,
+};
+
+// Export types separately
+export type {
   DepositZecOptions,
   SwapZecToSolOptions,
   WithdrawSolOptions,

@@ -2,7 +2,7 @@
 
 Generate anonymous wallets using chain signatures. Derive addresses on Solana, NEAR, and EVM chains from a single NEAR account. Spend from anonymous wallet , use any token , swap ZCash to any supported token on any chain via NEAR intents.
 
-![Flow Diagram](/flow.png)
+![Flow Diagram](./public/flow.png)
 
 ## 🎯 The Problem It Solves
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { Wallet } from "../types";
 import { CHAINS } from "../constants";
 import { copyAddress } from "../utils";
 
-export default function WalletsPage() {
+function WalletsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const selectedChain = searchParams.get("chain") || "all";
@@ -246,6 +246,21 @@ export default function WalletsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function WalletsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#EBF73F] mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading wallets...</p>
+        </div>
+      </div>
+    }>
+      <WalletsContent />
+    </Suspense>
   );
 }
 

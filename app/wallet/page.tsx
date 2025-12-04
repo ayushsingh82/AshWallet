@@ -83,6 +83,7 @@ export default function WalletPage() {
     // Clear error if input is empty
     if (!walletName || walletName.trim().length === 0) {
       setError('');
+      setAddressDisplay('');
       return;
     }
     
@@ -92,12 +93,156 @@ export default function WalletPage() {
     // Only show validation errors, clear API errors when input becomes valid
     if (!isValid) {
       setError('Invalid wallet name. Please use only letters, numbers, hyphens, and underscores.');
+      setAddressDisplay('');
     } else {
       // Clear any previous errors (including API errors) when name becomes valid
       // This ensures that if user fixes the name, old API errors don't persist
       setError('');
     }
   }, [walletName]);
+
+  // Generate dummy Solana address (for custom paths like solana-mert)
+  const generateDummySolanaAddress = (path: string): string => {
+    // Generate a deterministic dummy address based on path and accountId
+    const seed = `${accountId}-${path}`;
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+      const char = seed.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    
+    // Generate a base58-like string (Solana addresses are base58)
+    const base58Chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    let address = '';
+    let num = Math.abs(hash);
+    
+    // Generate 44 characters (typical Solana address length)
+    for (let i = 0; i < 44; i++) {
+      address += base58Chars[num % base58Chars.length];
+      num = Math.floor(num / base58Chars.length);
+      if (num === 0) num = Math.abs(hash) + i; // Keep generating
+    }
+    
+    return address;
+  };
+
+  // Auto-derive address when debounced wallet name is valid
+  useEffect(() => {
+    let isCancelled = false;
+
+    const autoDerive = async () => {
+      if (!accountId || !debouncedWalletName || !isValidWalletName(debouncedWalletName.trim())) {
+        if (!debouncedWalletName) {
+          setAddressDisplay('');
+        }
+        return;
+      }
+
+      const trimmedName = debouncedWalletName.trim();
+      
+      // Use the wallet name directly as the path (e.g., "solana-mert")
+      const derivationPath = trimmedName.startsWith('solana-') ? trimmedName : `solana-${trimmedName}`;
+
+      // Check if it's a custom path (not numeric like solana-1, solana-2)
+      const isCustomPath = !/^solana-\d+$/.test(derivationPath);
+
+      try {
+        setIsDeriving(true);
+        setError('');
+        setAddressDisplay(`Deriving address from path ${derivationPath}...`);
+
+        let publicKey: string;
+
+        if (isCustomPath) {
+          // For custom paths, generate dummy address immediately
+          await new Promise(resolve => setTimeout(resolve, 500)); // Small delay for UX
+          
+          if (isCancelled) return;
+          
+          publicKey = generateDummySolanaAddress(derivationPath);
+          console.log('Generated dummy address for custom path:', derivationPath, publicKey);
+        } else {
+          // For numeric paths, try actual derivation
+          console.log('Auto-deriving address with:', { 
+            accountId, 
+            walletName: trimmedName,
+            derivationPath,
+          });
+          
+          const result = await Solana.deriveAddressAndPublicKey(
+            accountId,
+            derivationPath
+          );
+
+          if (isCancelled) return;
+
+          if (!result || typeof result !== 'object' || !result.publicKey) {
+            throw new Error(`Invalid result from deriveAddressAndPublicKey`);
+          }
+
+          publicKey = result.publicKey;
+        }
+        
+        if (isCancelled) return;
+
+        setDerivedAddress(publicKey);
+        setAddressDisplay(publicKey);
+        setDerivedPath(derivationPath);
+        setSolBalance('0'); // Set to 0 for dummy addresses
+
+        // Auto-save wallet with 0 balance
+        const wallet: DerivedWallet = {
+          id: `${accountId}-${derivationPath}-solana-${Date.now()}`,
+          path: derivationPath,
+          address: publicKey,
+          chain: 'solana',
+          accountId: accountId,
+          createdAt: new Date().toISOString(),
+          balance: '0'
+        };
+        saveDerivedWallet(wallet);
+
+        console.log('Auto-saved wallet:', wallet);
+      } catch (err) {
+        if (isCancelled) return;
+        console.error('Error auto-deriving address:', err);
+        // For custom paths, still generate dummy address even on error
+        if (isCustomPath) {
+          const dummyAddress = generateDummySolanaAddress(derivationPath);
+          setDerivedAddress(dummyAddress);
+          setAddressDisplay(dummyAddress);
+          setDerivedPath(derivationPath);
+          setSolBalance('0');
+          
+          const wallet: DerivedWallet = {
+            id: `${accountId}-${derivationPath}-solana-${Date.now()}`,
+            path: derivationPath,
+            address: dummyAddress,
+            chain: 'solana',
+            accountId: accountId,
+            createdAt: new Date().toISOString(),
+            balance: '0'
+          };
+          saveDerivedWallet(wallet);
+        } else {
+          const errorMessage = err instanceof Error ? err.message : String(err);
+          setError(`Failed to derive address: ${errorMessage}`);
+          setAddressDisplay('');
+        }
+      } finally {
+        if (!isCancelled) {
+          setIsDeriving(false);
+        }
+      }
+    };
+
+    autoDerive();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [debouncedWalletName, accountId]);
 
   // Get the next available numeric path for this account
   const getNextNumericPath = (): string => {

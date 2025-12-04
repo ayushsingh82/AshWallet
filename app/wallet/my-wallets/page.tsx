@@ -24,29 +24,7 @@ export default function MyWalletsPage() {
   useEffect(() => {
     if (accountId && status === 'authenticated') {
       const userWallets = getDerivedWallets(accountId);
-      
-      // Add dummy wallet for testing (will be removed later)
-      const dummyWallet: DerivedWallet = {
-        id: 'dummy-solana-2',
-        path: 'solana-2',
-        address: '5qKow5dTuF22WbTJwxHTJD3iGuqEfc65TyV7ctBF9Cwg',
-        chain: 'solana',
-        accountId: accountId,
-        createdAt: new Date().toISOString(),
-        balance: '0.0012'
-      };
-      
-      // Check if dummy wallet already exists and update it
-      const dummyIndex = userWallets.findIndex(w => w.id === 'dummy-solana-2');
-      if (dummyIndex === -1) {
-        // Add new dummy wallet
-        setWallets([...userWallets, dummyWallet]);
-      } else {
-        // Update existing dummy wallet balance
-        const updatedWallets = [...userWallets];
-        updatedWallets[dummyIndex] = { ...updatedWallets[dummyIndex], balance: '0.0012' };
-        setWallets(updatedWallets);
-      }
+      setWallets(userWallets);
     } else {
       setWallets([]);
     }
@@ -465,12 +443,6 @@ export default function MyWalletsPage() {
                           >
                             Spend
                           </button>
-                          <button
-                            onClick={() => handleDelete(wallet.id)}
-                            className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
-                          >
-                            Delete
-                          </button>
                         </div>
                       </td>
                     </tr>
@@ -489,7 +461,7 @@ export default function MyWalletsPage() {
             <div className="absolute bottom-0 left-0 w-3 h-3 border-l-2 border-b-2 border-[#EBF73F]"></div>
             <div className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2 border-[#EBF73F]"></div>
             <h3 className="text-xl font-bold mb-4 text-[#EBF73F]">Statistics</h3>
-            <div className="grid md:grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-3 gap-4">
               <div>
                 <p className="text-sm text-gray-400">Total Wallets</p>
                 <p className="text-2xl font-bold">{wallets.length}</p>
@@ -497,10 +469,6 @@ export default function MyWalletsPage() {
               <div>
                 <p className="text-sm text-gray-400">Solana</p>
                 <p className="text-2xl font-bold">{wallets.filter(w => w.chain === 'solana').length}</p>
-              </div>
-              <div>
-                <p className="text-sm text-gray-400">NEAR</p>
-                <p className="text-2xl font-bold">{wallets.filter(w => w.chain === 'near').length}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-400">EVM</p>

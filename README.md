@@ -98,10 +98,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Key Pages
 
-- `/` - Landing page explaining Privacy Wallets
-- `/wallet` - Privacy Wallet Generator (main interface - enter name, derive address, swap)
 
 ## 🔗 Supported Chains
 

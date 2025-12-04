@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useNearWallet } from "../../src/provider/wallet";
 import { Connection as SolanaConnection } from "@solana/web3.js";
 import { chainAdapters } from "chainsig.js";
@@ -17,18 +17,15 @@ interface WalletStep {
   status: 'pending' | 'active' | 'completed';
 }
 
+// Create Solana adapter at module level to match SolanaView exactly
+const connection = new SolanaConnection("https://api.devnet.solana.com");
+const Solana = new chainAdapters.solana.Solana({
+  solanaConnection: connection,
+  contract: SIGNET_CONTRACT,
+});
+
 export default function WalletPage() {
   const { accountId, status } = useNearWallet();
-  
-  // Create Solana adapter using useMemo to ensure proper initialization
-  // Use devnet to match SolanaView component
-  const Solana = useMemo(() => {
-    const connection = new SolanaConnection("https://api.devnet.solana.com");
-    return new chainAdapters.solana.Solana({
-      solanaConnection: connection,
-      contract: SIGNET_CONTRACT,
-    });
-  }, []);
   const [currentStep, setCurrentStep] = useState<'name' | 'derive' | 'swap' | 'ready'>('name');
   const [walletName, setWalletName] = useState('');
   const [derivedAddress, setDerivedAddress] = useState('');
@@ -306,7 +303,7 @@ export default function WalletPage() {
           </div>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Generate anonymous Solana addresses using chain signatures. 
-            Swap ZEC to SOL via NEAR intents.
+          
           </p>
         </div>
 

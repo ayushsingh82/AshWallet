@@ -21,7 +21,11 @@
     "deposit": "ts-node components/deposit.ts",
     "intents": "ts-node components/intents.ts",
     "flow:complete": "ts-node function-examples.ts complete-flow",
-    "privacy-bridge": "ts-node examples/privacy-bridge-example.ts"
+    "privacy-bridge": "ts-node examples/privacy-bridge-example.ts",
+    "zec:deposit": "ts-node components/function-call.ts deposit-zec",
+    "zec:swap": "ts-node components/function-call.ts swap",
+    "zec:withdraw": "ts-node components/function-call.ts withdraw",
+    "zec:complete": "ts-node components/function-call.ts complete"
   },
   "dependencies": {
     "@defuse-protocol/one-click-sdk-typescript": "^0.1.14",
